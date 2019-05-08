@@ -10,8 +10,8 @@ namespace Condorcar.Models
     public class BddContext : DbContext
     {
         public DbSet<CUser> T_CUser { get; set; }
-        public DbSet<CDriver> T_CDriver { get; set; }
-        public DbSet<CPassenger> T_CPassenger { get; set; }
+       // public DbSet<CDriver> T_CDriver { get; set; }
+       // public DbSet<CPassenger> T_CPassenger { get; set; }
         public DbSet<CRide> T_CRide { get; set; }
         public DbSet<CVehicle> T_CVehicle { get; set; }
 

@@ -30,7 +30,7 @@ namespace Condorcar.Controllers
         [HttpPost]
         public ActionResult Login(CDriver user) // Réponse du formulaire de connexion
         {
-             if(user.IsRegistered()) // Si il n'a pas trouvé le pseudo dans la BDD
+             if(!user.IsRegistered()) // Si il n'a pas trouvé le pseudo dans la BDD
              { 
                  ViewBag.Message = "Ce pseudo n'existe pas dans notre base de donnée !";
                  return View("Login"); // Redirection erreur

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Condorcar.Models.POCO
 {
-    [Table("T_CDriver")]
+    //[Table("T_CDriver")]
     public class CDriver : CUser
     {
         public short GlobalNote { get; set; }        // Note globale (moyenne) attribué par les passager sur 5

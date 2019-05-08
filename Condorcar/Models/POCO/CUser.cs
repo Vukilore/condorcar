@@ -56,8 +56,8 @@ namespace Condorcar.Models.POCO
         public bool IsRegistered()
         {
             DAL_CUser dal = new DAL_CUser();
-            dal.Get(Pseudo);
-            if (dal == null) return false;
+            var m = dal.Get(Pseudo);
+            if (m == null) return false;
             else return true;
              
         }

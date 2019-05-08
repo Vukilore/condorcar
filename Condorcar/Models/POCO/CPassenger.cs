@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Condorcar.Models.POCO
 {
-    [Table("T_CPassenger")]
+    //[Table("T_CPassenger")]
     public class CPassenger : CUser
     {
         public bool Smoker { get; set; }
