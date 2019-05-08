@@ -26,6 +26,8 @@ namespace Condorcar.Models
                         .Map<CDriver>(m => m.Requires("Type").HasValue("Driver"))
                         .Map<CPassenger>(m => m.Requires("Type").HasValue("Passenger"));
         }
+
+        public System.Data.Entity.DbSet<Condorcar.Models.POCO.CDriver> CUsers { get; set; }
     }
 
     public class TTT : DropCreateDatabaseIfModelChanges<BddContext>

@@ -3,11 +3,14 @@
     ViewBag.Title = "Connected";
 }
 
-@ViewBag.Message
+<p>le type:</p>@ViewBag.Message
 @ViewBag.Message2
 
 <h2>Connecté sur la page des passagés !</h2>
 <p> Tu es ici car tu es déjà connecté @Session["pseudo"]!</p>
 
-<a href="../Home/Disconnect">Déconnexion</a>
+<input type="button" value="Voir la liste des trajets (en construction)" onclick="location.href='@Url.Action("List", "Ride")'" />
+
+<input type="button" value="Se déconnecter" onclick="location.href='@Url.Action("Disconnect", "Home")'" />
+
 

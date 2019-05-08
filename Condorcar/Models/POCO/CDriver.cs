@@ -10,7 +10,7 @@ namespace Condorcar.Models.POCO
     public class CDriver : CUser
     {
         public short GlobalNote { get; set; }        // Note globale (moyenne) attribué par les passager sur 5
-        public List<CVehicle> Vehicles { get; set; } // Liste des véhicules du conducteur
+        public virtual List<CVehicle> Vehicles { get; set; } // Liste des véhicules du conducteur
 
         // Add vehice, Delete Vehicle, Edit ?
 
@@ -22,6 +22,7 @@ namespace Condorcar.Models.POCO
         public void AddVehicle(CVehicle vehicle)
         {
             Vehicles.Add(vehicle);
+            vehicle.Register();
         }
     }
 }

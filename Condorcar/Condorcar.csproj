@@ -114,11 +114,13 @@
     <Compile Include="Controllers\DriverController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PassengerController.cs" />
+    <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BddContext.cs" />
     <Compile Include="Models\DAL\DAL_CUser.cs" />
+    <Compile Include="Models\DAL\DAL_CVehicle.cs" />
     <Compile Include="Models\POCO\CDriver.cs" />
     <Compile Include="Models\POCO\CPassenger.cs" />
     <Compile Include="Models\POCO\CRide.cs" />
@@ -136,11 +138,13 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Driver\Register.cshtml" />
-    <Content Include="Views\Passenger\Register.cshtml" />
     <Content Include="Views\Driver\Index.cshtml" />
     <Content Include="Views\Passenger\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Vehicle\Manage.cshtml" />
+    <Content Include="Views\Vehicle\Add.cshtml" />
+    <Content Include="Views\Driver\Register.cshtml" />
+    <Content Include="Views\Passenger\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,52 +1,74 @@
-﻿
+﻿@model Condorcar.Models.POCO.CPassenger
+
 @{
-                /**/
-
-                ViewBag.Title = "Inscription";
+    ViewBag.Title = "Register2";
 }
 
-<h2>Inscription</h2>
-@ViewBag.Message
-@model Condorcar.Models.POCO.CPassenger
-@using (Html.BeginForm("Register", "Passenger", FormMethod.Post))
+<h2>Enregistrement</h2>
+
+@using (Html.BeginForm("Register", "Passenger", FormMethod.Post)) 
 {
-<fieldset>
-    <legend>Enregistrement d'un passager sur le site Condorcar.</legend>
-
-    <div>
-        @Html.LabelFor(model => model.Pseudo)
-        @Html.TextBoxFor(model => model.Pseudo)
-        @Html.ValidationMessageFor(model => model.Pseudo)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.Password)
-        @Html.PasswordFor(model => model.Password)
-        @Html.ValidationMessageFor(model => model.Password)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.ConfirmPassword)
-        @Html.PasswordFor(model => model.ConfirmPassword)
-        @Html.ValidationMessageFor(model => model.ConfirmPassword)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.Address)
-        @Html.TextBoxFor(model => model.Address)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.Email)
-        @Html.TextBoxFor(model => model.Email)
-        @Html.ValidationMessageFor(model => model.Email)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.Smoker)
-        @Html.CheckBoxFor(model => model.Smoker)
-        @Html.ValidationMessageFor(model => model.Smoker)
-    </div>
+    @Html.AntiForgeryToken()
     
-    <br />
-    <input type="submit" value="S'enregistrer" />
-</fieldset>
+<div class="form-horizontal">
+    <h4>Enregistrement d'un passager</h4>
+    <h2>@ViewBag.Message</h2>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Pseudo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Pseudo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Pseudo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.PasswordFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Smoker, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Smoker)
+                @Html.ValidationMessageFor(model => model.Smoker, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="S'inscrire" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
-
-
-<input type="button" value="Se connecter" onclick="location.href='@Url.Action("Index", "Home")'" />

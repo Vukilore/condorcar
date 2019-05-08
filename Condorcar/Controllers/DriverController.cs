@@ -1,4 +1,5 @@
-﻿using Condorcar.Models.POCO;
+﻿using Condorcar.Models.DAL;
+using Condorcar.Models.POCO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,17 @@ namespace Condorcar.Controllers
 {
     public class DriverController : Controller
     {
-        // GET: Driver
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               INDEX                                       ///
+        /////////////////////////////////////////////////////////////////////////////////
         public ActionResult Index()
         {
+            ViewBag.Vehicles = Session["Vehicles"];
             return View("Index");
         }
 
         /////////////////////////////////////////////////////////////////////////////////
-        ///                               REGISTRATION                                ///
+        ///                               REGISTER                                    ///
         /////////////////////////////////////////////////////////////////////////////////
         public ActionResult Register() // Réponse du formulaire de connexion
         {
@@ -34,11 +38,13 @@ namespace Condorcar.Controllers
             }
             if (ModelState.IsValid) // Les champs sont remplis correctement
             {
-                if (driver.IsRegistered()) // Si il n'a pas trouvé le pseudo dans la BDD, on en crée un
+                if (!driver.IsRegistered()) // Si il n'a pas trouvé le pseudo dans la BDD, on en crée un
                 {
                     HttpCookie c = new HttpCookie("lastVisit");
                     Session["Pseudo"] = c.Value = driver.Pseudo;
                     c.Expires = DateTime.Now.AddDays(10);
+                    c.Values["Type"] = "Driver";
+                    Session["Driver"] = driver;
                     Response.Cookies.Add(c);
                     driver.GlobalNote = 4;
                     driver.Register();

@@ -9,5 +9,7 @@
 <h2>Connecté sur la page des conducteurs !</h2>
 <p> Tu es ici car tu es déjà connecté @Session["pseudo"]!</p>
 
-<a href="../Home/Disconnect">Déconnexion</a>
+<input type="button" value="Gérer mes véhicules" onclick="location.href='@Url.Action("Manage", "Vehicle")'" />
+<input type="button" value="Gérer mes trajets" onclick="location.href='@Url.Action("Manage", "Ride")'" />
+<input type="button" value="Se déconnecter" onclick="location.href='@Url.Action("Disconnect", "Home")'" />
 

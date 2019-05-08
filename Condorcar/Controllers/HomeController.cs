@@ -19,10 +19,11 @@ namespace Condorcar.Controllers
             if (Request.Cookies["lastVisit"] != null) // Si la personne s'est déjà connecté on auto-login
             {
                 Session["Pseudo"] = Request.Cookies["lastVisit"].Values["Pseudo"]; // On rajoute le pseudo du cookie dans la session
-                if (Request.Cookies["lastVisit"].Values["Pseudo"] == "Driver")
-                    return Redirect("../Driver/Index");
+                if (Request.Cookies["lastVisit"].Values["Type"] == "Driver")
+                    return Redirect("/Driver/Index");
                 else
-                    return Redirect("../Passenger/Index");
+                    ViewBag.Message2 = Request.Cookies["lastVisit"].Values["Type"];
+                    return Redirect("/Passenger/Index");
             }
             else return View("Login"); // Sinon on lui propose de se connecter/Inscrire
         }
@@ -46,12 +47,15 @@ namespace Condorcar.Controllers
                     HttpCookie c = new HttpCookie("lastVisit");
                     c.Values["Pseudo"] = user.Pseudo;
                     c.Expires = DateTime.Now.AddDays(10);
-                    
+                    Session["Pseudo"] = user.Pseudo;
 
                     // 2. Chargement de l'utilisateur et redirection vers les controleurs correspondant
                     var userLoaded = user.LoadUser(); // On charge toute la ligne de la BDD dans un objet
                     if (userLoaded is CDriver)
                     {
+                        Session["Driver"] = userLoaded;
+                        user = (CDriver)userLoaded;
+                        Session["Vehicles"] = user.Vehicles;
                         c.Values["Type"] = "Driver";
                         Response.Cookies.Add(c);
                         return Redirect("../Driver/Index");

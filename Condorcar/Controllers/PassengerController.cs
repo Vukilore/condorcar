@@ -9,14 +9,16 @@ namespace Condorcar.Controllers
 {
     public class PassengerController : Controller
     {
-        // GET: Passenger
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               INDEX                                       ///
+        /////////////////////////////////////////////////////////////////////////////////
         public ActionResult Index()
         {
             return View();
         }
 
         /////////////////////////////////////////////////////////////////////////////////
-        ///                               REGISTRATION                                ///
+        ///                               REGISTER                                    ///
         /////////////////////////////////////////////////////////////////////////////////
         public ActionResult Register() // Réponse du formulaire de connexion
         {
