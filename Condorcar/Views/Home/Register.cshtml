@@ -1,0 +1,18 @@
+﻿
+@{
+                /**/
+
+                ViewBag.Title = "Inscription";
+}
+
+<h2>Inscription</h2>
+@ViewBag.Message
+@model Condorcar.Models.POCO.CUser
+@using (Html.BeginForm("Register", "Home", FormMethod.Post))
+{
+
+}
+
+
+<input type="button" value="S'enregistrer comme conducteur" onclick="location.href='@Url.Action("Register", "Driver")'" />
+<input type="button" value="S'enregistrer comme Passager" onclick="location.href='@Url.Action("Register", "Passenger")'" />

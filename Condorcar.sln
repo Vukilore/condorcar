@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Condorcar", "Condorcar\Condorcar.csproj", "{5FF56035-030C-474D-96AC-2CCDEB959200}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Condorcar.Tests", "Condorcar.Tests\Condorcar.Tests.csproj", "{CF88346A-B86A-4BB4-A8BD-9593AB494DC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FF56035-030C-474D-96AC-2CCDEB959200}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FF56035-030C-474D-96AC-2CCDEB959200}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FF56035-030C-474D-96AC-2CCDEB959200}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FF56035-030C-474D-96AC-2CCDEB959200}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF88346A-B86A-4BB4-A8BD-9593AB494DC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF88346A-B86A-4BB4-A8BD-9593AB494DC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF88346A-B86A-4BB4-A8BD-9593AB494DC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF88346A-B86A-4BB4-A8BD-9593AB494DC3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {265F8B21-5E50-4FAA-9E52-7802E8C952FA}
+	EndGlobalSection
+EndGlobal

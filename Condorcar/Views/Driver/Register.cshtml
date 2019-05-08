@@ -1,0 +1,46 @@
+﻿
+@{
+                /**/
+
+                ViewBag.Title = "Inscription";
+}
+
+<h2>Inscription</h2>
+@ViewBag.Message
+@model Condorcar.Models.POCO.CDriver
+@using (Html.BeginForm("Register", "Driver", FormMethod.Post))
+{
+<fieldset>
+    <legend>Enregistrement sur le site Condorcar.</legend>
+
+    <div>
+        @Html.LabelFor(model => model.Pseudo)
+        @Html.TextBoxFor(model => model.Pseudo)
+        @Html.ValidationMessageFor(model => model.Pseudo)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Password)
+        @Html.PasswordFor(model => model.Password)
+        @Html.ValidationMessageFor(model => model.Password)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.ConfirmPassword)
+        @Html.PasswordFor(model => model.ConfirmPassword)
+        @Html.ValidationMessageFor(model => model.ConfirmPassword)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Address)
+        @Html.TextBoxFor(model => model.Address)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email)
+        @Html.ValidationMessageFor(model => model.Email)
+    </div>
+    <br />
+    <input type="submit" value="S'enregistrer" />
+</fieldset>
+}
+
+
+<input type="button" value="Se connecter" onclick="location.href='@Url.Action("Index", "Home")'" />
