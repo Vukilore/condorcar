@@ -30,6 +30,16 @@ namespace Condorcar.Models.DAL
             return bdd.T_CUser.ToList();
         }
 
+        public List<CDriver> GetAllDriver()
+        {
+            return bdd.T_CUser.OfType<CDriver>().ToList();
+        }
+
+        public List<CPassenger> GetAllPassenger()
+        {
+            return bdd.T_CUser.OfType<CPassenger>().ToList();
+        }
+
         public void Add(CUser user)
         {
             var t = bdd.T_CUser.Where(p => p.Pseudo == user.Pseudo).SingleOrDefault();

@@ -34,13 +34,12 @@ namespace Condorcar.Controllers
             }
             if (ModelState.IsValid) // Les champs sont remplis correctement
             {
-                if (passenger.IsRegistered()) // Si il n'a pas trouvé le pseudo dans la BDD, on en crée un
+                if (!passenger.IsRegistered()) // Si il n'a pas trouvé le pseudo dans la BDD, on en crée un
                 {
                     HttpCookie c = new HttpCookie("lastVisit");
                     Session["Pseudo"] = c.Value = passenger.Pseudo;
                     c.Expires = DateTime.Now.AddDays(10);
                     Response.Cookies.Add(c);
-                    passenger.Smoker = true;
                     passenger.Register();
                     return View("../Home/Logged");
                 }

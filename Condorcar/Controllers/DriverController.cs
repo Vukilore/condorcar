@@ -12,7 +12,7 @@ namespace Condorcar.Controllers
         // GET: Driver
         public ActionResult Index()
         {
-            return View();
+            return View("Index");
         }
 
         /////////////////////////////////////////////////////////////////////////////////

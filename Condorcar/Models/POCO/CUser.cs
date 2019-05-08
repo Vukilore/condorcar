@@ -10,7 +10,7 @@ using System.Web;
 namespace Condorcar.Models.POCO
 {
     [Table("T_CUser")]
-    public abstract class CUser 
+    public abstract class CUser
     {
         //
         // Attributs de chaques utilisateurs du site (admins, passagers, conducteurs)
@@ -57,9 +57,7 @@ namespace Condorcar.Models.POCO
         {
             DAL_CUser dal = new DAL_CUser();
             var m = dal.Get(Pseudo);
-            if (m == null) return false;
-            else return true;
-             
+            return m != null;
         }
 
         /////////////////////////////////////////////////////////////////////////////////
@@ -84,16 +82,13 @@ namespace Condorcar.Models.POCO
             else return false;
         }
 
-       /* public static CUser Login(string _username, string _password)
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                              LoadUser                                     ///
+        /////////////////////////////////////////////////////////////////////////////////
+        public CUser LoadUser()
         {
-            DAL_CUser dal = new DAL_CUser();
-            CUser tmpUser = dal.Get(_username);
-            if (tmpUser == null)
-            {
-                return null;
-            }
-
-
-        }*/
+            DAL_CUser user = new DAL_CUser();
+            return user.Get(Pseudo);
+        }
     }
 }
