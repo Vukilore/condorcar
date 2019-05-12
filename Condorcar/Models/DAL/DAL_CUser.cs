@@ -50,7 +50,15 @@ namespace Condorcar.Models.DAL
             bdd.SaveChanges();
         }
 
-        public void Save() { bdd.SaveChanges(); }
+        public void AddVehicleToDB(CDriver user)
+        {
+            var tmpUser = (CDriver)bdd.T_CUser.Where(p => p.Id == user.Id).SingleOrDefault();
+            if (tmpUser == null)
+                throw new Exception();
+
+            tmpUser.Vehicles = user.Vehicles;
+            bdd.SaveChanges();
+        }
 
         public void Dispose()
         {

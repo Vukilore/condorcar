@@ -44,13 +44,11 @@
                     @item.CanSmoke
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Modifier", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Supprimer", "Delete", new { id = item.Id })
                 </td>
             </tr>
         }
-    }
-    <input type="button" value="Ajouter un véhicule" onclick="location.href='@Url.Action("Add", "Vehicle")'" />
+    } else { <tr>Vous n'avez pas encore de véhicule enregistré !</tr>}
 </table>
-
+<input type="button" value="Ajouter un véhicule" onclick="location.href='@Url.Action("Add", "Vehicle")'" />

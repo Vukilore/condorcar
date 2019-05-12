@@ -34,7 +34,7 @@ namespace Condorcar.Controllers
         /////////////////////////////////////////////////////////////////////////////////
         ///                               REGISTER                                    ///
         /////////////////////////////////////////////////////////////////////////////////
-        public ActionResult Register() // Réponse du formulaire de connexion
+        public ActionResult Register() // Quand on clique sur le bouton s'inscrire comme conducteur
         {
             return View("Register");
         }

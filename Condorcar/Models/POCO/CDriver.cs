@@ -20,12 +20,17 @@ namespace Condorcar.Models.POCO
             GlobalNote = 0;
         }
 
+
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               AddVehicle                                  ///
+        /////////////////////////////////////////////////////////////////////////////////
         public void AddVehicle(CVehicle vehicle)
         {
             Vehicles.Add(vehicle);
             DAL_CUser user = new DAL_CUser();
-            user.Save();
-            vehicle.Register();
+            user.AddVehicleToDB(this);
         }
+
+        
     }
 }

@@ -18,36 +18,36 @@ namespace Condorcar.Controllers
         /////////////////////////////////////////////////////////////////////////////////
         ///                               ManageVehicle                               ///
         /////////////////////////////////////////////////////////////////////////////////
-        public ActionResult Manage()
+        public ActionResult Manage() // Quand on clique sur le bouton gérer ses véhicules
         {
             ViewBag.Message = "";
-            ViewBag.Vehicles = Session["Vehicles"];
-            return View("Manage");
+            CDriver user = new CDriver();
+            user = (CDriver)CUser.LoadUser((string)Session["Pseudo"]); // On charge les variables du conducteur dans user
+            ViewBag.Vehicles = user.Vehicles; // On stock les véhicules du conducteur dans un Viewbag
+            return View("Manage"); // On affiche la vue Manage pour gérer la liste des véhicules
         }
 
         /////////////////////////////////////////////////////////////////////////////////
         ///                               Add                                         ///
         /////////////////////////////////////////////////////////////////////////////////
-        public ActionResult Add()
+        public ActionResult Add() // Quand on appuie sur le bouton ajouter véhicule
         {
-            CDriver user = new CDriver();
-            user = (CDriver)CUser.LoadUser((string)Session["Pseudo"]);
-            ViewBag.Vehicles = user.Vehicles;
-            return View("Add");
+            return View("Add"); // Formulaire d'ajout de véhicule
         }
 
         [HttpPost]
-        public ActionResult Add(CVehicle vehicle)
+        public ActionResult Add(CVehicle vehicle) // Quand on valide le formulaire pour ajouter le véhicule
         {
-            if(ModelState.IsValid)
+            if(ModelState.IsValid) // Si les champs sont valides
             {
                 CDriver user = new CDriver();
-                user = (CDriver)CUser.LoadUser((string)Session["Pseudo"]);
-                user.AddVehicle(vehicle);
-                ViewBag.Message = "Vous avez enregistrez un nouveau véhicule ! (Modèle : " + vehicle.Model + " places : " + vehicle.Seat + " Autorisé à fumer : " + vehicle.CanSmoke+ ")";
-                return View("Manage");
+                user = (CDriver)CUser.LoadUser((string)Session["Pseudo"]); // On charge les variables du conducteur dans user
+                user.AddVehicle(vehicle); // Méthode pour rajouter véhicule dans la liste (+ sauvegarde bdd)
+                ViewBag.Message = "Vous avez enregistré un nouveau véhicule ! (Modèle : " + vehicle.Model + " places : " + vehicle.Seat + " Autorisé à fumer : " + vehicle.CanSmoke+ ")";
+                ViewBag.Vehicle += vehicle; // Pour l'afficher directe dans la liste
+                return View("Manage"); // Affichage de la liste
             }
-            return View();
+            return View("Add"); // les champs sont pas valides
         }
     }
 }
