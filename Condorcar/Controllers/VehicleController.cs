@@ -30,6 +30,9 @@ namespace Condorcar.Controllers
         /////////////////////////////////////////////////////////////////////////////////
         public ActionResult Add()
         {
+            CDriver user = new CDriver();
+            user = (CDriver)CUser.LoadUser((string)Session["Pseudo"]);
+            ViewBag.Vehicles = user.Vehicles;
             return View("Add");
         }
 
@@ -38,7 +41,8 @@ namespace Condorcar.Controllers
         {
             if(ModelState.IsValid)
             {
-                CDriver user = (CDriver)Session["Driver"];
+                CDriver user = new CDriver();
+                user = (CDriver)CUser.LoadUser((string)Session["Pseudo"]);
                 user.AddVehicle(vehicle);
                 ViewBag.Message = "Vous avez enregistrez un nouveau véhicule ! (Modèle : " + vehicle.Model + " places : " + vehicle.Seat + " Autorisé à fumer : " + vehicle.CanSmoke+ ")";
                 return View("Manage");

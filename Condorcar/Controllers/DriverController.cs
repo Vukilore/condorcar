@@ -15,7 +15,19 @@ namespace Condorcar.Controllers
         /////////////////////////////////////////////////////////////////////////////////
         public ActionResult Index()
         {
-            ViewBag.Vehicles = Session["Vehicles"];
+            return View("Index");
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               Connect                                     ///
+        /////////////////////////////////////////////////////////////////////////////////
+        public ActionResult Connect() // Redirection une fois connecté
+        {
+            HttpCookie c = new HttpCookie("lastVisit");
+            c.Values["Pseudo"] = (string)Session["Pseudo"];
+            c.Expires = DateTime.Now.AddDays(10);
+            c.Values["Type"] = "Driver";
+            Response.Cookies.Add(c);
             return View("Index");
         }
 
@@ -40,15 +52,9 @@ namespace Condorcar.Controllers
             {
                 if (!driver.IsRegistered()) // Si il n'a pas trouvé le pseudo dans la BDD, on en crée un
                 {
-                    HttpCookie c = new HttpCookie("lastVisit");
-                    Session["Pseudo"] = c.Value = driver.Pseudo;
-                    c.Expires = DateTime.Now.AddDays(10);
-                    c.Values["Type"] = "Driver";
-                    Session["Driver"] = driver;
-                    Response.Cookies.Add(c);
-                    driver.GlobalNote = 4;
+                    Session["Pseudo"] = driver.Pseudo;
                     driver.Register();
-                    return Redirect("../Home/Index");
+                    return Redirect("../Driver/Connect");
                 }
                 else
                 {

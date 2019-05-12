@@ -18,6 +18,19 @@ namespace Condorcar.Controllers
         }
 
         /////////////////////////////////////////////////////////////////////////////////
+        ///                               Connect                                     ///
+        /////////////////////////////////////////////////////////////////////////////////
+        public ActionResult Connect() // Redirection une fois connecté
+        {
+            HttpCookie c = new HttpCookie("lastVisit");
+            c.Values["Pseudo"] = (string)Session["Pseudo"];
+            c.Expires = DateTime.Now.AddDays(10);
+            c.Values["Type"] = "Passenger";
+            Response.Cookies.Add(c);
+            return View("Index");
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////
         ///                               REGISTER                                    ///
         /////////////////////////////////////////////////////////////////////////////////
         public ActionResult Register() // Réponse du formulaire de connexion
@@ -32,18 +45,15 @@ namespace Condorcar.Controllers
             if (Session["Pseudo"] != null) // Si la session n'est pas vide mais qu'il arrive quand même sur ce controller
             {
                 ViewBag.Message = "Vous êtes déjà connecté !";
-                return Redirect("/Driver/Index");
+                return Redirect("/Passenger/Index");
             }
             if (ModelState.IsValid) // Les champs sont remplis correctement
             {
                 if (!passenger.IsRegistered()) // Si il n'a pas trouvé le pseudo dans la BDD, on en crée un
                 {
-                    HttpCookie c = new HttpCookie("lastVisit");
-                    Session["Pseudo"] = c.Value = passenger.Pseudo;
-                    c.Expires = DateTime.Now.AddDays(10);
-                    Response.Cookies.Add(c);
+                    Session["Pseudo"] = passenger.Pseudo;
                     passenger.Register();
-                    return View("../Home/Logged");
+                    return Redirect("../Passenger/Connect");
                 }
                 else
                 {

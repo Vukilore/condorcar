@@ -18,6 +18,7 @@ namespace Condorcar.Models.POCO
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Le pseudo doit être saisi et de minimum 3 caractères !"), MinLength(3), MaxLength(15)]
+        [Index]
         public string Pseudo { get; set; }
 
         [Required(ErrorMessage = "Le mot de passe doit être saisi et de minimum 6 caractères !"), Display(Name = "Mot de passe"), MinLength(6)]
@@ -85,10 +86,10 @@ namespace Condorcar.Models.POCO
         /////////////////////////////////////////////////////////////////////////////////
         ///                              LoadUser                                     ///
         /////////////////////////////////////////////////////////////////////////////////
-        public CUser LoadUser()
+        public static CUser LoadUser(string username)
         {
             DAL_CUser user = new DAL_CUser();
-            return user.Get(Pseudo);
+            return user.Get(username);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Condorcar.Controllers
             if (Request.Cookies["lastVisit"] != null) // Si la personne s'est déjà connecté on auto-login
             {
                 Session["Pseudo"] = Request.Cookies["lastVisit"].Values["Pseudo"]; // On rajoute le pseudo du cookie dans la session
-                if (Request.Cookies["lastVisit"].Values["Type"] == "Driver")
+                if (Request.Cookies["lastVisit"].Values["Type"] == "Driver") // On redirige selon qu'il soit Driver ou Passenger
                     return Redirect("/Driver/Index");
                 else
                     ViewBag.Message2 = Request.Cookies["lastVisit"].Values["Type"];
@@ -43,30 +43,20 @@ namespace Condorcar.Controllers
              {
                  if(user.IsCorrectPassword()) // Le mot de passe correspond bien à celui de la BDD
                  {
-                    // 1. Création d'un cookie avec expiration
-                    HttpCookie c = new HttpCookie("lastVisit");
-                    c.Values["Pseudo"] = user.Pseudo;
-                    c.Expires = DateTime.Now.AddDays(10);
+                    // 1. On met le pseudo dans la session
                     Session["Pseudo"] = user.Pseudo;
 
                     // 2. Chargement de l'utilisateur et redirection vers les controleurs correspondant
-                    var userLoaded = user.LoadUser(); // On charge toute la ligne de la BDD dans un objet
-                    if (userLoaded is CDriver)
+                    var userLoaded = CUser.LoadUser(user.Pseudo); // On charge toute la ligne de la BDD dans un objet TODO: optimiser ça
+                    if (userLoaded is CDriver) // Si c'est un conducteur
                     {
-                        Session["Driver"] = userLoaded;
-                        user = (CDriver)userLoaded;
-                        Session["Vehicles"] = user.Vehicles;
-                        c.Values["Type"] = "Driver";
-                        Response.Cookies.Add(c);
-                        return Redirect("../Driver/Index");
+                        return Redirect("../Driver/Connect");
                     }
-                    else if(userLoaded is CPassenger)
+                    else if(userLoaded is CPassenger) // Si c'est un passagé 
                     {
-                        c.Values["Type"] = "Passenger";
-                        Response.Cookies.Add(c);
-                        return Redirect("../Passenger/Index");
+                        return Redirect("../Passenger/Connect");
                     }
-                    else { ViewBag.Message2 = "Tu es AUCUN DES DEUX!!!"; }
+                    else { ViewBag.Message2 = "Tu es AUCUN DES DEUX!!!"; } //todo <= gérer si aucun des deux
                     return View("Logged");
                  }
                  else
@@ -84,15 +74,6 @@ namespace Condorcar.Controllers
         {
             ViewBag.Message = ""; // On nettoie le message d'erreur
             return View("Register");
-        }
-
-        /////////////////////////////////////////////////////////////////////////////////
-        ///                               LOGGED                                      ///
-        /////////////////////////////////////////////////////////////////////////////////
-        public ActionResult Logged() // Une fois connecté
-        {
-            if (Session["Pseudo"] != null) return View(); // Si il est bien connecté on continue sur la page
-            return Redirect("/Home/Index"); // Sinon on retourne au point de départ (connexion/inscription)
         }
 
         /////////////////////////////////////////////////////////////////////////////////

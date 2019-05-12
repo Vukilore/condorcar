@@ -7,7 +7,7 @@
 @ViewBag.Message2
 
 <h2>Connecté sur la page des passagés !</h2>
-<p> Tu es ici car tu es déjà connecté @Session["pseudo"]!</p>
+<p> Tu es ici car tu es déjà connecté @ViewBag.Pseudo!</p>
 
 <input type="button" value="Voir la liste des trajets (en construction)" onclick="location.href='@Url.Action("List", "Ride")'" />
 

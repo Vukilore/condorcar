@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Condorcar.Models.DAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace Condorcar.Models.POCO
         public void AddVehicle(CVehicle vehicle)
         {
             Vehicles.Add(vehicle);
+            DAL_CUser user = new DAL_CUser();
+            user.Save();
             vehicle.Register();
         }
     }

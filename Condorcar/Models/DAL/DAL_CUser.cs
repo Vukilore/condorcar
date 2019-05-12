@@ -50,6 +50,8 @@ namespace Condorcar.Models.DAL
             bdd.SaveChanges();
         }
 
+        public void Save() { bdd.SaveChanges(); }
+
         public void Dispose()
         {
             bdd.Dispose();
