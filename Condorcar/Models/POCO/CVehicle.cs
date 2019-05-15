@@ -16,23 +16,26 @@ namespace Condorcar.Models.POCO
         public int Seat { get; set; }       // Places maximum 
         [Display(Name = "Modèle de la voiture")]
         public string Model { get; set; }   // Modèle de la voiture
-        [Display(Name = "Peut fumer à l'interieur ?")]
+        [Display(Name = "Autorisé à fumer ?")]
         public bool CanSmoke { get; set; }
 
-        public CVehicle(){ }
 
-        public CVehicle(int id, int seat, string model, bool canSmoke)
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               Exist                                       ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///  Vérifie si le véhicule n'existe pas déjà dans la liste de l'utilisateur ////
+        public bool Exist(CDriver driver) 
         {
-            Id = id;
-            Seat = seat;
-            Model = model;
-            CanSmoke = canSmoke;
-        }
-
-        public void Register()
-        {
-            DAL_CVehicle veh = new DAL_CVehicle();
-            veh.Add(this);
+            var user = (CDriver)CUser.LoadUser(driver.Pseudo); // On charge les variables de l'utilisateur
+            if(user.Vehicles != null) // Si il a bien au moins un véhicule dans sa liste
+            {
+                foreach (CVehicle veh in user.Vehicles) // on parcours tous ses véhicules
+                {
+                    if (this.Model == veh.Model && this.Seat == veh.Seat) // Si le véhicule existe déjà on retourne true
+                        return true;
+                }
+            }
+            return false; // Si il arrive ici c'est qu'il n'a pas de véhicule ou aucun correspond
         }
     }
 }

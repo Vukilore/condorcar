@@ -114,6 +114,7 @@
     <Compile Include="Controllers\DriverController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PassengerController.cs" />
+    <Compile Include="Controllers\RideController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -145,6 +146,10 @@
     <Content Include="Views\Vehicle\Add.cshtml" />
     <Content Include="Views\Driver\Register.cshtml" />
     <Content Include="Views\Passenger\Register.cshtml" />
+    <Content Include="Views\Ride\Create.cshtml" />
+    <Content Include="Views\Ride\Index.cshtml" />
+    <Content Include="Views\Ride\Details.cshtml" />
+    <Content Include="Views\Ride\ListeTrajet.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

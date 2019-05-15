@@ -26,7 +26,7 @@ namespace Condorcar.Controllers
             ViewBag.Vehicles = user.Vehicles; // On stock les véhicules du conducteur dans un Viewbag
             return View("Manage"); // On affiche la vue Manage pour gérer la liste des véhicules
         }
-
+        
         /////////////////////////////////////////////////////////////////////////////////
         ///                               Add                                         ///
         /////////////////////////////////////////////////////////////////////////////////
@@ -42,10 +42,18 @@ namespace Condorcar.Controllers
             {
                 CDriver user = new CDriver();
                 user = (CDriver)CUser.LoadUser((string)Session["Pseudo"]); // On charge les variables du conducteur dans user
-                user.AddVehicle(vehicle); // Méthode pour rajouter véhicule dans la liste (+ sauvegarde bdd)
-                ViewBag.Message = "Vous avez enregistré un nouveau véhicule ! (Modèle : " + vehicle.Model + " places : " + vehicle.Seat + " Autorisé à fumer : " + vehicle.CanSmoke+ ")";
-                ViewBag.Vehicle += vehicle; // Pour l'afficher directe dans la liste
-                return View("Manage"); // Affichage de la liste
+                if (user.AddVehicle(vehicle) == true) // Si il a bien pu ajouter le véhicule
+                {
+                    ViewBag.Message = "Vous avez enregistré un nouveau véhicule ! (Modèle : " + vehicle.Model + " places : " + vehicle.Seat + " Autorisé à fumer : " + vehicle.CanSmoke + ")";
+                    ViewBag.Vehicles = user.Vehicles; // Pour l'afficher directe dans la liste
+                    return View("Manage"); // Affichage de la liste
+                }
+                else // Sinon il existe déjà
+                {
+                    ViewBag.Vehicles = user.Vehicles; // Pour l'afficher directe dans la liste
+                    ViewBag.Message = "Vous avez déjà ajouté ce véhicule parmis vos véhicules !";
+                    return View("Manage"); // Affichage de la liste
+                }
             }
             return View("Add"); // les champs sont pas valides
         }

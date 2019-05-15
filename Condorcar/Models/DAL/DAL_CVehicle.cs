@@ -24,16 +24,6 @@ namespace Condorcar.Models.DAL
         {
             return bdd.T_CVehicle.ToList();
         }
-        
-        public void Add(CVehicle vehicle)
-        {
-            //var t = bdd.T_CVehicle.Where(p => p.Pseudo == user.Pseudo).SingleOrDefault();
-            //if (t != null)
-            //    throw new Exception();
-
-            bdd.T_CVehicle.Add(vehicle);
-            bdd.SaveChanges();
-        }
 
         public void Dispose()
         {

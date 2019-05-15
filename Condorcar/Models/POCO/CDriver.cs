@@ -24,11 +24,17 @@ namespace Condorcar.Models.POCO
         /////////////////////////////////////////////////////////////////////////////////
         ///                               AddVehicle                                  ///
         /////////////////////////////////////////////////////////////////////////////////
-        public void AddVehicle(CVehicle vehicle)
+        ///       Ajoute un véhicule dans la liste des véhicules de l'utilisateur    ////
+        public bool AddVehicle(CVehicle vehicle)
         {
-            Vehicles.Add(vehicle);
-            DAL_CUser user = new DAL_CUser();
-            user.AddVehicleToDB(this);
+            if (!vehicle.Exist(this))
+            {
+                Vehicles.Add(vehicle);
+                DAL_CUser user = new DAL_CUser();
+                user.AddVehicleToDB(this);
+                return true;
+            }
+            else return false;            
         }
 
         

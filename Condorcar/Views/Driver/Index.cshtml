@@ -10,6 +10,6 @@
 <p> Tu es ici car tu es déjà connecté @Session["Pseudo"]!</p>
 
 <input type="button" value="Gérer mes véhicules" onclick="location.href='@Url.Action("Manage", "Vehicle")'" />
-<input type="button" value="Gérer mes trajets" onclick="location.href='@Url.Action("Manage", "Ride")'" />
+<input type="button" value="Gérer mes trajets" onclick="location.href='@Url.Action("Index", "Ride")'" />
 <input type="button" value="Se déconnecter" onclick="location.href='@Url.Action("Disconnect", "Home")'" />
 

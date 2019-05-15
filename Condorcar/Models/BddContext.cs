@@ -14,19 +14,19 @@ namespace Condorcar.Models
        // public DbSet<CPassenger> T_CPassenger { get; set; }
         public DbSet<CRide> T_CRide { get; set; }
         public DbSet<CVehicle> T_CVehicle { get; set; }
-
+        
         public BddContext()
         {
             Database.SetInitializer(new TTT());
         }
-
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CUser>()
                         .Map<CDriver>(m => m.Requires("Type").HasValue("Driver"))
                         .Map<CPassenger>(m => m.Requires("Type").HasValue("Passenger"));
         }
-
+        
         public System.Data.Entity.DbSet<Condorcar.Models.POCO.CDriver> CUsers { get; set; }
     }
 
