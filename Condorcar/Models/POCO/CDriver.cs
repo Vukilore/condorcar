@@ -1,6 +1,7 @@
 ﻿using Condorcar.Models.DAL;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Condorcar.Models.POCO
     //[Table("T_CDriver")]
     public class CDriver : CUser
     {
+        
         public short GlobalNote { get; set; }        // Note globale (moyenne) attribué par les passager sur 5
         public virtual List<CVehicle> Vehicles { get; set; } // Liste des véhicules du conducteur
 

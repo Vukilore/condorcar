@@ -33,10 +33,10 @@ namespace Condorcar.Models.POCO
         ///                               Exist                                       ///
         /////////////////////////////////////////////////////////////////////////////////
         ///  Vérifie si le véhicule n'existe pas déjà dans la liste de l'utilisateur ////
-        public bool Exist(CDriver driver) 
+        public bool Exist(CDriver driver)
         {
             var user = (CDriver)CUser.LoadUser(driver.Pseudo); // On charge les variables de l'utilisateur
-            if(user.Vehicles != null) // Si il a bien au moins un véhicule dans sa liste
+            if (user.Vehicles != null) // Si il a bien au moins un véhicule dans sa liste
             {
                 foreach (CVehicle veh in user.Vehicles) // on parcours tous ses véhicules
                 {
@@ -45,6 +45,16 @@ namespace Condorcar.Models.POCO
                 }
             }
             return false; // Si il arrive ici c'est qu'il n'a pas de véhicule ou aucun correspond
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               BoolToYesNo                                 ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                 Obtient les infos de la base de données                  ////   
+        public string BoolToYesNo()
+        {
+            if (CanSmoke) return "Oui";
+            else return "Non";
         }
     }
 }

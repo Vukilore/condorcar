@@ -8,37 +8,37 @@ namespace Condorcar.Models.DAL
 {
     public class DAL_CRide
     {
-        private BddContext bddRide;
+        private BddContext bdd;
 
         public DAL_CRide()
         {
-            bddRide = new BddContext();
+            bdd = new BddContext();
         }
         
         public CRide Get(int id)
         {
-            return bddRide.T_CRide.Where(p => p.Id == id).SingleOrDefault();
+            return bdd.T_CRide.Where(p => p.Id == id).SingleOrDefault();
         }
         
         public CRide GetDriverRide(CDriver driver)
         {
-            return bddRide.T_CRide.Where(p => p.Driver == driver).SingleOrDefault();
+            return bdd.T_CRide.Where(p => p.Driver == driver).SingleOrDefault();
         }
 
         public List<CRide> GetAll()
         {
-            return bddRide.T_CRide.ToList();
+            return bdd.T_CRide.ToList();
         }
         
         public void Add(CRide ride)
         {
-            /*var t = bddRide.T_CRide.Where(p => p.Pseudo == user.Pseudo).SingleOrDefault();
+            /*var t = bdd.T_CRide.Where(p => p.Pseudo == user.Pseudo).SingleOrDefault();
             if (t != null)
                 throw new Exception();*/
 
             try
             {
-                bddRide.T_CRide.Add(ride);
+                bdd.T_CRide.Add(ride);
             }
             catch(Exception e)
             {
@@ -47,7 +47,7 @@ namespace Condorcar.Models.DAL
 
             try
             {
-                bddRide.SaveChanges();
+                bdd.SaveChanges();
             }
             catch(Exception e)
             {
@@ -57,7 +57,7 @@ namespace Condorcar.Models.DAL
 
         public void Dispose()
         {
-            bddRide.Dispose();
+            bdd.Dispose();
         }
     }
 }

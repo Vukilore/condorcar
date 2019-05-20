@@ -24,7 +24,8 @@ namespace Condorcar.Controllers
         public ActionResult Connect() // Redirection une fois connecté
         {
             HttpCookie c = new HttpCookie("lastVisit");
-            c.Values["Pseudo"] = (string)Session["Pseudo"];
+            var user = (CDriver)Session["User"];
+            c.Values["Pseudo"] = user.Pseudo;
             c.Expires = DateTime.Now.AddDays(10);
             c.Values["Type"] = "Driver";
             Response.Cookies.Add(c);

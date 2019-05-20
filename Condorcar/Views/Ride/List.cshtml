@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Condorcar.Models.POCO.CRide>
+@{ ViewBag.RideList = Session["rideList"];}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartureTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArrivalTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Place)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Driver.Pseudo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vehicle.CanSmoke)
+        </th>
+        <th></th>
+    </tr>
+    @if (ViewBag.RideList != null)
+    {
+        foreach (var item in ViewBag.RideList)
+        {
+            <tr>
+                <td>
+                    @item.DepartureTime
+                </td>
+                <td>
+                    @item.ArrivalTime
+                </td>
+                <td>
+                    @item.Place
+                </td>
+                <td>
+                    @item.Price
+                </td>
+                <td>
+                    @item.Driver.Pseudo
+                </td>
+                <td>
+                    @if (item.Vehicle.CanSmoke)
+                    {<span>Oui</span>}
+                    else
+                    {<span>Non</span>}
+                </td>
+                <td>
+                    @Html.ActionLink("Souscrire au trajet", "Subscribe", new { id = item.Id }) |
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr><td>Il n'y a actuellement aucun trajet proposé pour les prochaines dates ! :(</td></tr>
+    }
+</table>

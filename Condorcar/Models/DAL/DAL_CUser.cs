@@ -1,6 +1,9 @@
 ﻿using Condorcar.Models.POCO;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -61,22 +64,56 @@ namespace Condorcar.Models.DAL
             bdd.SaveChanges();
         }
 
-        public void SaveDriver(CDriver user)
+       /* public void SaveDriver(CUser user)
         {
-            bdd.Entry(user).State = System.Data.Entity.EntityState.Modified;
-            bdd.SaveChanges();
-        }
-
-        /*public void AddVehicleToDB(CDriver user)
-        {
-            var tmpUser = (CDriver)bdd.T_CUser.Where(p => p.Id == user.Id).SingleOrDefault();
+            var tmpUser = bdd.T_CUser.Where(p => p.Id == user.Id).SingleOrDefault();
             if (tmpUser == null)
                 throw new Exception();
 
-            tmpUser.Vehicles = user.Vehicles;
-            bdd.SaveChanges();
+            bdd.Entry(tmpUser).State = user == null ? EntityState.Added : EntityState.Modified;
+            try { bdd.SaveChanges(); }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+        }*/
+
+        public void SaveDriver(CDriver user) 
+        {
+            DbEntityEntry<CDriver> entry = bdd.Entry(user);
+            entry.Property(e => e.Vehicles).IsModified = true;
+            try { bdd.SaveChanges(); }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
         }
-        */
+        
+
         public void Dispose()
         {
             bdd.Dispose();

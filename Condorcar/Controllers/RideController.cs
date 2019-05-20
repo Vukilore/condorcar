@@ -72,6 +72,38 @@ namespace Condorcar.Controllers
         }
 
         /////////////////////////////////////////////////////////////////////////////////
+        ///                               List                                        ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                     Affiche la liste de tous les trajets                 ////
+        public ActionResult List()
+        {
+
+            Session["rideList"] = CRide.GetAll();// TODO: catalogue
+            return View();
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               Subscribe                                   ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                     Affiche la liste de tous les trajets                 ////
+        public ActionResult Subscribe(int idRide)
+        {
+            CRide ride = new CRide();
+            ride = ride.GetRide(idRide);
+            if(ride.Passengers.Count() >= ride.Vehicle.Seat) // Si la liste des passager n'est pas complet 
+            {
+                // Faire la date
+            }
+            else
+            {
+                ViewBag.Message = "Nombre de place maximum atteinte !";
+                Session["rideList"] = CRide.GetAll();// TODO: catalogue
+                View("List");
+            }
+            return View();
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////
         ///                               Edit                                        ///
         /////////////////////////////////////////////////////////////////////////////////
         ///                 Edit un trajet dans la liste des trajets                 ////

@@ -24,7 +24,6 @@ namespace Condorcar.Models.POCO
         [Required(ErrorMessage = "Le mot de passe doit être saisi et de minimum 6 caractères !"), Display(Name = "Mot de passe"), MinLength(6)]
         public string Password { get; set; }
 
-        [NotMapped]
         [Required(ErrorMessage = "Le mot de passe de confirmation doit être saisi et de minimum 6 caractères !")]
         [CompareAttribute("Password", ErrorMessage = "Les deux mots de passe rentré ne correspondent pas !")]
         [Display(Name = "Mot de passe (confirmation)")]
@@ -89,7 +88,8 @@ namespace Condorcar.Models.POCO
         public static CUser LoadUser(string username)
         {
             DAL_CUser user = new DAL_CUser();
-            return user.Get(username);
+            var u = user.Get(username);
+            return u;
         }
     }
 }

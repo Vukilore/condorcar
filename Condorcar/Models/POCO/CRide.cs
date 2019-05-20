@@ -19,13 +19,13 @@ namespace Condorcar.Models.POCO
         public int Id { get; set; }
         [Required]
         [Display(Name = "Heure de départ")]
-        [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm:ss}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-ddThh:mm:ss}")]
         public DateTime DepartureTime { get; set; }               // Jour + Heure de départ
         [Required]
-        [Display(Name = "Heure estimée d'arrivée")]
-        [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm:ss}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Heure estimée d'arriver")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-ddThh:mm:ss}")]
         public DateTime ArrivalTime { get; set; }                  // Jour + Heure d'arrivée
         [Required]
         [Display(Name = "Point de départ")]
@@ -45,6 +45,24 @@ namespace Condorcar.Models.POCO
         {
             DAL_CRide ride = new DAL_CRide();
             ride.Add(this);
+        }
+
+        public void AddPassenger(CPassenger passenger)
+        {
+            Passengers.Add(passenger);
+            // sauvegarde ?
+        }
+
+        public CRide GetRide(int rideId)
+        {
+            DAL_CRide ride = new DAL_CRide();
+            return ride.Get(rideId);
+        }
+
+        public static List<CRide> GetAll()
+        {
+            DAL_CRide rides = new DAL_CRide();
+            return rides.GetAll();
         }
 
     }

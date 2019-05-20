@@ -41,7 +41,8 @@
                     @item.Model
                 </td>
                 <td>
-                    @item.CanSmoke
+                    @if (item.CanSmoke) { <span>Oui</span>  }
+                    else { <span>Non</span>}
                 </td>
                 <td>
                     @Html.ActionLink("Modifier", "Edit", new { id = item.Id }) |

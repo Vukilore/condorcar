@@ -150,7 +150,7 @@
     <Content Include="Views\Ride\Create.cshtml" />
     <Content Include="Views\Ride\Index.cshtml" />
     <Content Include="Views\Ride\Details.cshtml" />
-    <Content Include="Views\Ride\ListeTrajet.cshtml" />
+    <Content Include="Views\Ride\List.cshtml" />
     <Content Include="Views\Ride\Delete.cshtml" />
     <Content Include="Views\Vehicle\Delete.cshtml" />
     <None Include="Web.Debug.config">
