@@ -43,7 +43,7 @@ namespace Condorcar.Controllers
         public ActionResult Register(CDriver driver) // Réponse du formulaire de connexion
         {
             ViewBag.Message = ""; // On nettoie le message d'erreur
-            if (Session["Pseudo"] != null) // Si la session n'est pas vide mais qu'il arrive quand même sur ce controller
+            if (Session["User"] != null) // Si la session n'est pas vide mais qu'il arrive quand même sur ce controller
             {
                 ViewBag.Message = "Vous êtes déjà connecté !";
                 return Redirect("/Driver/Index");
@@ -52,8 +52,8 @@ namespace Condorcar.Controllers
             {
                 if (!driver.IsRegistered()) // Si il n'a pas trouvé le pseudo dans la BDD, on en crée un
                 {
-                    Session["Pseudo"] = driver.Pseudo;
-                    driver.Register();
+                    driver.Register();  // Fonction pour enregistrer le conducteur
+                    Session["User"] = CUser.LoadUser(driver.Pseudo);  // On ajoute l'objet récupérer de la BDD de l'utilisateur dans la session
                     return Redirect("../Driver/Connect");
                 }
                 else

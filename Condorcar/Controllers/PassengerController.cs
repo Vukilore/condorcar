@@ -42,7 +42,7 @@ namespace Condorcar.Controllers
         public ActionResult Register(CPassenger passenger) // Réponse du formulaire de connexion
         {
             ViewBag.Message = ""; // On nettoie le message d'erreur
-            if (Session["Pseudo"] != null) // Si la session n'est pas vide mais qu'il arrive quand même sur ce controller
+            if (Session["User"] != null) // Si la session n'est pas vide mais qu'il arrive quand même sur ce controller
             {
                 ViewBag.Message = "Vous êtes déjà connecté !";
                 return Redirect("/Passenger/Index");
@@ -51,8 +51,8 @@ namespace Condorcar.Controllers
             {
                 if (!passenger.IsRegistered()) // Si il n'a pas trouvé le pseudo dans la BDD, on en crée un
                 {
-                    Session["Pseudo"] = passenger.Pseudo;
-                    passenger.Register();
+                    passenger.Register();   // On enregistre le passager
+                    Session["User"] = CUser.LoadUser(passenger.Pseudo);  // On ajoute l'objet récupérer de la BDD de l'utilisateur dans la session
                     return Redirect("../Passenger/Connect");
                 }
                 else

@@ -120,6 +120,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BddContext.cs" />
+    <Compile Include="Models\DAL\DAL_CRide.cs" />
     <Compile Include="Models\DAL\DAL_CUser.cs" />
     <Compile Include="Models\DAL\DAL_CVehicle.cs" />
     <Compile Include="Models\POCO\CDriver.cs" />
@@ -150,6 +151,8 @@
     <Content Include="Views\Ride\Index.cshtml" />
     <Content Include="Views\Ride\Details.cshtml" />
     <Content Include="Views\Ride\ListeTrajet.cshtml" />
+    <Content Include="Views\Ride\Delete.cshtml" />
+    <Content Include="Views\Vehicle\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

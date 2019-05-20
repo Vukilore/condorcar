@@ -19,6 +19,15 @@ namespace Condorcar.Models.POCO
         [Display(Name = "Autorisé à fumer ?")]
         public bool CanSmoke { get; set; }
 
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               Get                                         ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                 Obtient les infos de la base de données                  ////   
+        public static CVehicle Get(int id)
+        {
+            DAL_CVehicle veh = new DAL_CVehicle();
+            return veh.Get(id);
+        }
 
         /////////////////////////////////////////////////////////////////////////////////
         ///                               Exist                                       ///

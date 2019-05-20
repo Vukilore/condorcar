@@ -1,0 +1,42 @@
+﻿@model Condorcar.Models.POCO.CVehicle
+
+<h3>Êtes vous certain de vouloir supprimer ce véhicule ?</h3>
+<div>
+    <h4>CVehicle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Seat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CanSmoke)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CanSmoke)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Suppression" class="btn btn-default" /> |
+            @Html.ActionLink("Retour à la liste", "Index")
+        </div>
+    }
+</div>

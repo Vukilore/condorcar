@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<Condorcar.Models.POCO.CRide>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Créer un nouveau trajet", "Create")
 </p>
+<p>@ViewBag.Message</p>
 <table class="table">
     <tr>
         <th>
@@ -19,22 +20,22 @@
         </th>
         <th></th>
     </tr>
-    @if (Model != null)
+    @if (ViewBag.Rides != null)
     {
-        foreach (var item in Model)
+        foreach (var item in ViewBag.Rides)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DepartureTime)
+                    @item.DepartureTime
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ArrivalTime)
+                    @item.ArrivalTime
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Place)
+                    @item.Place
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    @item.Price
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

@@ -22,11 +22,21 @@ namespace Condorcar.Controllers
         {
             ViewBag.Message = "";
             CDriver user = new CDriver();
-            user = (CDriver)CUser.LoadUser((string)Session["Pseudo"]); // On charge les variables du conducteur dans user
+            user = (CDriver)Session["User"];
             ViewBag.Vehicles = user.Vehicles; // On stock les véhicules du conducteur dans un Viewbag
             return View("Manage"); // On affiche la vue Manage pour gérer la liste des véhicules
         }
-        
+
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               Delete                                      ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                 Supprime un véhicule dans la liste de l'utilisateur      ////
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
         /////////////////////////////////////////////////////////////////////////////////
         ///                               Add                                         ///
         /////////////////////////////////////////////////////////////////////////////////
@@ -41,11 +51,12 @@ namespace Condorcar.Controllers
             if(ModelState.IsValid) // Si les champs sont valides
             {
                 CDriver user = new CDriver();
-                user = (CDriver)CUser.LoadUser((string)Session["Pseudo"]); // On charge les variables du conducteur dans user
+                user = (CDriver)Session["User"];    // On charge les variables du conducteur dans user
                 if (user.AddVehicle(vehicle) == true) // Si il a bien pu ajouter le véhicule
                 {
                     ViewBag.Message = "Vous avez enregistré un nouveau véhicule ! (Modèle : " + vehicle.Model + " places : " + vehicle.Seat + " Autorisé à fumer : " + vehicle.CanSmoke + ")";
                     ViewBag.Vehicles = user.Vehicles; // Pour l'afficher directe dans la liste
+                    Session["User"] = user;
                     return View("Manage"); // Affichage de la liste
                 }
                 else // Sinon il existe déjà

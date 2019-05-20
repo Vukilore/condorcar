@@ -18,11 +18,10 @@ namespace Condorcar.Controllers
             ViewBag.Message = ""; // On reset le message d'erreur de la connexion
             if (Request.Cookies["lastVisit"] != null) // Si la personne s'est déjà connecté on auto-login
             {
-                Session["Pseudo"] = Request.Cookies["lastVisit"].Values["Pseudo"]; // On rajoute le pseudo du cookie dans la session
-                if (Request.Cookies["lastVisit"].Values["Type"] == "Driver") // On redirige selon qu'il soit Driver ou Passenger
+                Session["User"] = CUser.LoadUser(Request.Cookies["lastVisit"].Values["Pseudo"]);  // On ajoute l'objet récupérer de la BDD de l'utilisateur dans la session
+                if (Session["User"] is CDriver) // On redirige selon qu'il soit Driver ou Passenger
                     return Redirect("/Driver/Index");
                 else
-                    ViewBag.Message2 = Request.Cookies["lastVisit"].Values["Type"];
                     return Redirect("/Passenger/Index");
             }
             else return View("Login"); // Sinon on lui propose de se connecter/Inscrire
@@ -43,16 +42,13 @@ namespace Condorcar.Controllers
              {
                  if(user.IsCorrectPassword()) // Le mot de passe correspond bien à celui de la BDD
                  {
-                    // 1. On met le pseudo dans la session
-                    Session["Pseudo"] = user.Pseudo;
-
-                    // 2. Chargement de l'utilisateur et redirection vers les controleurs correspondant
-                    var userLoaded = CUser.LoadUser(user.Pseudo); // On charge toute la ligne de la BDD dans un objet TODO: optimiser ça
-                    if (userLoaded is CDriver) // Si c'est un conducteur
+                    // 1. Chargement de l'utilisateur et redirection vers les controleurs correspondant
+                    Session["User"] = CUser.LoadUser(user.Pseudo);  // On ajoute l'objet récupérer de la BDD de l'utilisateur dans la session
+                    if (Session["User"] is CDriver) // Si c'est un conducteur
                     {
                         return Redirect("../Driver/Connect");
                     }
-                    else if(userLoaded is CPassenger) // Si c'est un passagé 
+                    else if(Session["User"] is CPassenger) // Si c'est un passagé 
                     {
                         return Redirect("../Passenger/Connect");
                     }

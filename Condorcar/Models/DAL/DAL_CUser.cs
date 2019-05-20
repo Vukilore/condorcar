@@ -25,6 +25,17 @@ namespace Condorcar.Models.DAL
             return bdd.T_CUser.Where(p => p.Pseudo == pseudo).SingleOrDefault();
         }
 
+        public CDriver GetDriver(string pseudo)
+        {
+            var d = bdd.T_CUser.Where(p => p.Pseudo == pseudo).OfType<CDriver>().SingleOrDefault();
+            return d;
+        }
+
+        /* public List<CVehicle> GetUserVehicleByName(string pseudo)
+         {
+             return bdd.T_CUser.Where(p => p.Pseudo == pseudo).Select(p => p.Vehicles).ToList();
+         }*/
+
         public List<CUser> GetAll()
         {
             return bdd.T_CUser.ToList();
@@ -50,7 +61,13 @@ namespace Condorcar.Models.DAL
             bdd.SaveChanges();
         }
 
-        public void AddVehicleToDB(CDriver user)
+        public void SaveDriver(CDriver user)
+        {
+            bdd.Entry(user).State = System.Data.Entity.EntityState.Modified;
+            bdd.SaveChanges();
+        }
+
+        /*public void AddVehicleToDB(CDriver user)
         {
             var tmpUser = (CDriver)bdd.T_CUser.Where(p => p.Id == user.Id).SingleOrDefault();
             if (tmpUser == null)
@@ -59,7 +76,7 @@ namespace Condorcar.Models.DAL
             tmpUser.Vehicles = user.Vehicles;
             bdd.SaveChanges();
         }
-
+        */
         public void Dispose()
         {
             bdd.Dispose();

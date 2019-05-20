@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -13,14 +14,6 @@ namespace Condorcar.Models.POCO
         public short GlobalNote { get; set; }        // Note globale (moyenne) attribué par les passager sur 5
         public virtual List<CVehicle> Vehicles { get; set; } // Liste des véhicules du conducteur
 
-        // Add vehice, Delete Vehicle, Edit ?
-
-        public CDriver() // Constructeur
-        {
-            GlobalNote = 0;
-        }
-
-
         /////////////////////////////////////////////////////////////////////////////////
         ///                               AddVehicle                                  ///
         /////////////////////////////////////////////////////////////////////////////////
@@ -29,14 +22,12 @@ namespace Condorcar.Models.POCO
         {
             if (!vehicle.Exist(this))
             {
-                Vehicles.Add(vehicle);
+                this.Vehicles.Add(vehicle); // On ajoute le véhicule à la liste de véhicule de l'utilisateur
                 DAL_CUser user = new DAL_CUser();
-                user.AddVehicleToDB(this);
+                user.SaveDriver(this);
                 return true;
             }
             else return false;            
         }
-
-        
     }
 }
