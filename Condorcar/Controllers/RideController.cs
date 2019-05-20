@@ -92,9 +92,30 @@ namespace Condorcar.Controllers
             ride = ride.GetRide(idRide);
             if(ride.Passengers.Count() >= ride.Vehicle.Seat) // Si la liste des passager n'est pas complet 
             {
-                // Faire la date
+               if(ride.ArrivalTime.Date.Hour > DateTime.Now.Date.Hour)
+               {
+                    if (ride.DepartureTime.Date.Hour >= DateTime.Now.Date.Hour + 1)
+                    {
+                        ride.AddPassenger((CPassenger)Session["User"]);
+                        ViewBag.Message("Vous vous êtes bien inscrit au trajet !");
+                        Session["rideList"] = CRide.GetAll();// TODO: catalogue
+                        View("List");
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Trop tard ! Le départ est déjà en cours ou en préparation !";
+                        Session["rideList"] = CRide.GetAll();// TODO: catalogue
+                        View("List");
+                    }
+               }
+               else // Trajet est déjà fini
+               {
+                    ViewBag.Message = "Trop tard ! Le trajet est déjà fini !";
+                    Session["rideList"] = CRide.GetAll();// TODO: catalogue
+                    View("List");
+               }
             }
-            else
+            else // Sinon le nombre de place est atteins !
             {
                 ViewBag.Message = "Nombre de place maximum atteinte !";
                 Session["rideList"] = CRide.GetAll();// TODO: catalogue

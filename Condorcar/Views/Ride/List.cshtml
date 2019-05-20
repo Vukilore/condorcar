@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Condorcar.Models.POCO.CRide>
 @{ ViewBag.RideList = Session["rideList"];}
 
+@ViewBag.Message
 <table class="table">
     <tr>
         <th>
@@ -27,7 +28,7 @@
     {
         foreach (var item in ViewBag.RideList)
         {
-            <tr>
+            <tr style="background-color:#D0E3FA">
                 <td>
                     @item.DepartureTime
                 </td>
