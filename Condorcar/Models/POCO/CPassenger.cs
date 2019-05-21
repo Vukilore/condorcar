@@ -23,7 +23,13 @@ namespace Condorcar.Models.POCO
             RideList.Add(ride);
             DAL_CUser user = new DAL_CUser();
             user.Save(this);
-            //ride.AddPassenger(this);
+        }
+
+        public void RemoveToRide(CRide ride)
+        {
+            RideList.Remove(ride);
+            DAL_CUser user = new DAL_CUser();
+            user.Save(this);
         }
 
     }

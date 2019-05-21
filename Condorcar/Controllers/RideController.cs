@@ -82,6 +82,7 @@ namespace Condorcar.Controllers
             CPassenger user = new CPassenger();
             user = (CPassenger)Session["User"];
             Session["smoker"] = user.Smoker;
+            Session["userRideList"] = user.RideList;
             Session["rideList"] = CRide.GetAll();// TODO: catalogue
             return View();
         }
@@ -89,12 +90,30 @@ namespace Condorcar.Controllers
         /////////////////////////////////////////////////////////////////////////////////
         ///                               Subscribe                                   ///
         /////////////////////////////////////////////////////////////////////////////////
-        ///                     Affiche la liste de tous les trajets                 ////
+        ///                     Retire un passager à un trajet                       ////
+        public ActionResult UnSubscribe(int idRide)
+        {
+            CPassenger passenger = (CPassenger)Session["User"];
+            CRide ride = new CRide();
+            ride = ride.GetRide(idRide);
+            passenger.RemoveToRide(ride);
+            Session["User"] = passenger;
+            ViewBag.Message = "Vous vous êtes bien inscrit au trajet !";
+            Session["smoker"] = passenger.Smoker;
+            Session["userRideList"] = passenger.RideList;
+            Session["rideList"] = CRide.GetAll();
+            return View("List");
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               Subscribe                                   ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                     Inscrit un passager à un trajet                      ////
         public ActionResult Subscribe(int idRide)
         {
             CRide ride = new CRide();
             ride = ride.GetRide(idRide);
-            if (ride.Vehicle.Seat >= ride.Passengers.Count()) // Si la liste des passager n'est pas complet 
+            if (ride.Vehicle.Seat > ride.Passengers.Count()) // Si la liste des passager n'est pas complet 
             {
                if(DateTime.Compare(ride.ArrivalTime.Date, DateTime.Now) < 0 )
                {
@@ -104,6 +123,8 @@ namespace Condorcar.Controllers
                         passenger.AddToRide(ride);
                         Session["User"] = passenger;
                         ViewBag.Message ="Vous vous êtes bien inscrit au trajet !";
+                        Session["smoker"] = passenger.Smoker;
+                        Session["userRideList"] = passenger.RideList;
                         Session["rideList"] = CRide.GetAll();
                         return View("List");
                     }

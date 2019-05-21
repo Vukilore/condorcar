@@ -2,7 +2,8 @@
 
 @model IEnumerable<Condorcar.Models.POCO.CRide>
 @{ ViewBag.RideList = Session["rideList"];
-    ViewBag.Smoker = Session["smoker"];}
+    ViewBag.Smoker = Session["smoker"];
+    ViewBag.UserRideList = Session["UserRideList"];}
 
 
 @ViewBag.Message
@@ -24,7 +25,7 @@
             @Html.DisplayNameFor(model => model.Driver.Pseudo)
         </th>
         <th>
-            <p>Nombre de passagé/Passagé Maximum</p>
+            <p>Passagé(s)/Place(s) Maximum</p>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Vehicle.CanSmoke)
@@ -35,15 +36,35 @@
     {
         foreach (var item in (List<CRide>)ViewBag.RideList)
         {
+            ViewBag.Unsuscribable = false;
             ViewBag.Subscribable = false;
-            if (DateTime.Compare(item.ArrivalTime, DateTime.Now) < 0)
-            { ViewBag.Colour = "#e84e4e"; }
-            else if (DateTime.Compare(item.DepartureTime, DateTime.Now) == 0)
-            { ViewBag.Colour = "#D0E3FA"; }
-            else
+            if(ViewBag.UserRideList != null)
             {
-                ViewBag.Colour = "#4ee872";
-                ViewBag.Subscribable = true;
+                foreach(var ride in (List<CRide>)ViewBag.UserRideList)
+                {
+                    if(ride.Id == item.Id)
+                    {
+                        ViewBag.Colour = "#7d8984";
+                        ViewBag.Unsuscribable = true;
+                    }
+                }
+            }
+            if(ViewBag.Unsuscribable == false)
+            {
+                if (DateTime.Compare(item.ArrivalTime, DateTime.Now) < 0)
+                { ViewBag.Colour = "#e84e4e"; }
+                else if (DateTime.Compare(item.DepartureTime, DateTime.Now) < 0)
+                {
+                    if (DateTime.Compare(item.ArrivalTime, DateTime.Now) > 0)
+                    {
+                        ViewBag.Colour = "#417ee0";
+                    }
+                }
+                else
+                {
+                    ViewBag.Colour = "#4ee872";
+                    ViewBag.Subscribable = true;
+                }
             }
 
             <tr style="background-color:@ViewBag.Colour">
@@ -57,7 +78,7 @@
                     @item.Place
                 </td>
                 <td>
-                    @item.Price
+                    @item.Price €
                 </td>
                 <td>
                     @item.Driver.Pseudo
@@ -66,21 +87,29 @@
                     @item.Passengers.Count() / @item.Vehicle.Seat
                 </td>
                 <td>
-                    @if (ViewBag.CanSmoke != item.Vehicle.CanSmoke) { }
+                    @if (ViewBag.Smoker != item.Vehicle.CanSmoke)
+                    {<img src="~/Content/image/smoking.png" />}
                     @if (item.Vehicle.CanSmoke)
                     {<span>Oui</span>}
                     else
                     {<span>Non</span>}
 
                 </td>
-                @if (ViewBag.Subscribable)
-                {
-                    <td>
-                        @Html.ActionLink("Souscrire au trajet", "Subscribe", new { idRide = item.Id })
-                    </td>
-                }
+                <td>
+                    @if (ViewBag.Unsuscribable == true && DateTime.Compare(item.DepartureTime, DateTime.Now) > 0)
+                    {
+                        @Html.ActionLink("Annuler mon trajet", "UnSubscribe", new { idRide = item.Id }, new { @class = "btn btn-danger" })
+                    }
+                    else if (ViewBag.Subscribable)
+                    {
+
+                        @Html.ActionLink("Souscrire au trajet", "UnSubscribe", new { idRide = item.Id }, new { @class = "btn btn-warning" })
+                    }
+                </td>
             </tr>
         }
+        <tr><td></td><td style="background-color:#7d8984">Vous êtes inscrit au trajet</td><td style="background-color:#e84e4e">Le trajet est fini.</td><td style="background-color:#417ee0">Le trajet est en cours.</td><td style="background-color:#4ee872">Le trajet est disponible.</td>
+            <td></td><td><img src="~/Content/image/smoking.png" />@if (ViewBag.Smoker == true) { <p>Trajet non fumeur !!</p>} else { <p>Trajet potentiellement fumeur !!</p> } </td></tr>
     }
     else
     {

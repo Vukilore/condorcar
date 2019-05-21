@@ -96,6 +96,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <EmbeddedResource Include="Content\image\smoking.png" />
+    <Content Include="Content\image\deco.png" />
+    <Content Include="Content\image\icons8-carpool-filled-50.png" />
+    <Content Include="Content\image\icons8-driver-482.png" />
+    <Content Include="Content\image\icons8-passenger-48.png" />
+    <Content Include="Content\image\icons8-taxi-license-642.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

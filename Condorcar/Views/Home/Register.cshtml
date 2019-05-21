@@ -12,5 +12,5 @@
 }
 
 
-<input type="button" value="S'enregistrer comme conducteur" onclick="location.href='@Url.Action("Register", "Driver")'" />
-<input type="button" value="S'enregistrer comme Passager" onclick="location.href='@Url.Action("Register", "Passenger")'" />
+<button onclick="location.href='@Url.Action("Register", "Driver")'" style="background-color:transparent; border-color:transparent;"><img src="~/Content/image/icons8-driver-482.png" /><br />S'enregistrer comme conducteur</button>
+<button type="button" onclick="location.href='@Url.Action("Register", "Passenger")'" style="background-color:transparent; border-color:transparent;"><img src="~/Content/image/icons8-passenger-48.png" /><br />S'enregistrer comme Passager</button>
