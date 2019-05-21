@@ -63,6 +63,7 @@ namespace Condorcar.Controllers
                 driver = (CDriver)Session["User"];    // On charge les variables du conducteur dans user
                 ride.Driver = driver; 
                 ride.Add();
+                Session["persoRides"] = CRide.GetAll((CDriver)Session["User"]); ;
                 ViewBag.Message = "Vous avez bien enregistré un nouveau trajet";
                 return View("Index");
             }

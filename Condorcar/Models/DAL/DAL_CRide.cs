@@ -1,6 +1,7 @@
 ﻿using Condorcar.Models.POCO;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -35,30 +36,17 @@ namespace Condorcar.Models.DAL
             return bdd.T_CRide.Where(p => p.Driver.Id == driver.Id).ToList();
         }
 
+        public void SaveRide(CRide ride)
+        {
+            bdd.Entry(ride).State = EntityState.Modified;
+            bdd.SaveChanges();
+        }
+
         public void Add(CRide ride)
         {
-            /*var t = bdd.T_CRide.Where(p => p.Pseudo == user.Pseudo).SingleOrDefault();
-            if (t != null)
-                throw new Exception();*/
-
-            try
-            {
-                bdd.T_CRide.Add(ride);
-            }
-            catch(Exception e)
-            {
-                var m = e.Message;
-            }
-
-            try
-            {
-                bdd.SaveChanges();
-            }
-            catch(Exception e)
-            {
-                var m = e.Message;
-            }
-}
+            bdd.T_CRide.Add(ride);
+            bdd.SaveChanges();
+        }
 
         public void Dispose()
         {

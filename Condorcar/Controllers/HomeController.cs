@@ -19,6 +19,7 @@ namespace Condorcar.Controllers
             if (Request.Cookies["lastVisit"] != null) // Si la personne s'est déjà connecté on auto-login
             {
                 Session["User"] = CUser.LoadUser(Request.Cookies["lastVisit"].Values["Pseudo"]);  // On ajoute l'objet récupérer de la BDD de l'utilisateur dans la session
+                if(Session["User"] == null) return View("Login");
                 if (Session["User"] is CDriver) // On redirige selon qu'il soit Driver ou Passenger
                     return Redirect("/Driver/Index");
                 else

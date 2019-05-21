@@ -59,7 +59,8 @@ namespace Condorcar.Models.POCO
         public void AddPassenger(CPassenger passenger)
         {
             Passengers.Add(passenger);
-            // sauvegarde ?
+            DAL_CRide ride = new DAL_CRide();
+            ride.SaveRide(this);
         }
 
         /////////////////////////////////////////////////////////////////////////////////
