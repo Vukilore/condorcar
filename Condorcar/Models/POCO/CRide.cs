@@ -42,6 +42,9 @@ namespace Condorcar.Models.POCO
         public virtual List<CPassenger> Passengers { get; set; }   // Le(s) passager(s) du trajet
 
 
+
+        public CRide() { Passengers = new List<CPassenger>(); }
+
         /////////////////////////////////////////////////////////////////////////////////
         ///                               Add                                         ///
         /////////////////////////////////////////////////////////////////////////////////

@@ -28,7 +28,7 @@ namespace Condorcar.Models.POCO
             {
                 this.Vehicles.Add(vehicle); // On ajoute le véhicule à la liste de véhicule de l'utilisateur
                 DAL_CUser user = new DAL_CUser();
-                user.SaveDriver(this);
+                user.Save(this);
                 return true;
             }
             else return false;            

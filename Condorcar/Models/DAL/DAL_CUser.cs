@@ -64,12 +64,17 @@ namespace Condorcar.Models.DAL
             bdd.SaveChanges();
         }
 
-        public void SaveDriver(CDriver user)
+        public void Save(CDriver user)
         {
             bdd.Entry(user).State = EntityState.Modified;
             bdd.SaveChanges();
         }
 
+        public void Save(CPassenger user)
+        {
+            bdd.Entry(user).State = EntityState.Modified;
+            bdd.SaveChanges();
+        }
 
         public void Dispose()
         {

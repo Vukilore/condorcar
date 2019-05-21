@@ -100,7 +100,9 @@ namespace Condorcar.Controllers
                {
                     if (DateTime.Compare(ride.DepartureTime.Date, DateTime.Now.Date.AddHours(1)) < 0 )
                     {
-                        ride.AddPassenger((CPassenger)Session["User"]);
+                        CPassenger passenger = (CPassenger)Session["User"];
+                        passenger.AddToRide(ride);
+                        Session["User"] = passenger;
                         ViewBag.Message ="Vous vous êtes bien inscrit au trajet !";
                         Session["rideList"] = CRide.GetAll();
                         return View("List");
