@@ -36,33 +36,51 @@ namespace Condorcar.Models.POCO
 
         public virtual CDriver Driver { get; set; }                // Le conducteur du trajet
         [Display(Name = "Véhicule à utiliser")]
-        public virtual CVehicle Vehicle { get; set; }                      // Le véhicule utilisé durant le trajet (modèle + place disponible)
+        public virtual CVehicle Vehicle { get; set; }              // Le véhicule utilisé durant le trajet (modèle + place disponible)
         [NotMapped]
         public string VehicleId { get; set; }                      // Id du véhicule récupérer dans le formulaire du trajet
         public virtual List<CPassenger> Passengers { get; set; }   // Le(s) passager(s) du trajet
 
+
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               Add                                         ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                Ajoute un trajet dans la base de données                  ////
         public void Add()
         {
             DAL_CRide ride = new DAL_CRide();
             ride.Add(this);
         }
 
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               AddPassenger                                ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///             Ajoute un passagé dans la liste des passagés du trajet       ////
         public void AddPassenger(CPassenger passenger)
         {
             Passengers.Add(passenger);
             // sauvegarde ?
         }
 
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               GetRide                                     ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                    Retourne le trajet en fonction de son ID              ////
         public CRide GetRide(int rideId)
         {
             DAL_CRide ride = new DAL_CRide();
             return ride.Get(rideId);
         }
 
-        public static List<CRide> GetAll()
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               GetAll                                      ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                     Retourne une liste de tous les trajets               ////
+        public static List<CRide> GetAll(CDriver user = null)
         {
             DAL_CRide rides = new DAL_CRide();
-            return rides.GetAll();
+            if (user == null) return rides.GetAll();
+            else return rides.GetAll(user);
         }
 
     }

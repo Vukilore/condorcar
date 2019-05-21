@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Condorcar.Models.POCO.CRide>
-
+@{ ViewBag.Rides = Session["persoRides"];}
 <p>
     @Html.ActionLink("Créer un nouveau trajet", "Create")
 </p>

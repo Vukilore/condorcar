@@ -19,6 +19,8 @@ namespace Condorcar.Models.POCO
         [Display(Name = "Autorisé à fumer ?")]
         public bool CanSmoke { get; set; }
 
+        public CVehicle() { }
+
         /////////////////////////////////////////////////////////////////////////////////
         ///                               Get                                         ///
         /////////////////////////////////////////////////////////////////////////////////

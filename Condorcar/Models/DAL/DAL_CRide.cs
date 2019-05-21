@@ -12,7 +12,7 @@ namespace Condorcar.Models.DAL
 
         public DAL_CRide()
         {
-            bdd = new BddContext();
+            bdd = BddContext.GetInstance();
         }
         
         public CRide Get(int id)
@@ -27,9 +27,14 @@ namespace Condorcar.Models.DAL
 
         public List<CRide> GetAll()
         {
-            return bdd.T_CRide.ToList();
+             return bdd.T_CRide.ToList();
         }
-        
+
+        public List<CRide> GetAll(CDriver driver)
+        {
+            return bdd.T_CRide.Where(p => p.Driver.Id == driver.Id).ToList();
+        }
+
         public void Add(CRide ride)
         {
             /*var t = bdd.T_CRide.Where(p => p.Pseudo == user.Pseudo).SingleOrDefault();

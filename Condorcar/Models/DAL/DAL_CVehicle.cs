@@ -12,7 +12,7 @@ namespace Condorcar.Models.DAL
 
         public DAL_CVehicle()
         {
-            bdd = new BddContext();
+            bdd = BddContext.GetInstance();
         }
 
         public CVehicle Get(int id)

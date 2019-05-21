@@ -13,7 +13,7 @@ namespace Condorcar.Models.POCO
     public class CDriver : CUser
     {
         
-        public short GlobalNote { get; set; }        // Note globale (moyenne) attribué par les passager sur 5
+       // public short GlobalNote { get; set; }        // Note globale (moyenne) attribué par les passager sur 5 à faire plus tard
         public virtual List<CVehicle> Vehicles { get; set; } // Liste des véhicules du conducteur
 
         /////////////////////////////////////////////////////////////////////////////////

@@ -15,7 +15,7 @@ namespace Condorcar.Models.DAL
 
         public DAL_CUser()
         {
-            bdd = new BddContext();
+            bdd = BddContext.GetInstance();
         }
         
         public CUser Get(int id)
@@ -64,55 +64,12 @@ namespace Condorcar.Models.DAL
             bdd.SaveChanges();
         }
 
-       /* public void SaveDriver(CUser user)
+        public void SaveDriver(CDriver user)
         {
-            var tmpUser = bdd.T_CUser.Where(p => p.Id == user.Id).SingleOrDefault();
-            if (tmpUser == null)
-                throw new Exception();
-
-            bdd.Entry(tmpUser).State = user == null ? EntityState.Added : EntityState.Modified;
-            try { bdd.SaveChanges(); }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
-                            ve.PropertyName,
-                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
-                            ve.ErrorMessage);
-                    }
-                }
-                throw;
-            }
-        }*/
-
-        public void SaveDriver(CDriver user) 
-        {
-            DbEntityEntry<CDriver> entry = bdd.Entry(user);
-            entry.Property(e => e.Vehicles).IsModified = true;
-            try { bdd.SaveChanges(); }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
-                            ve.PropertyName,
-                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
-                            ve.ErrorMessage);
-                    }
-                }
-                throw;
-            }
+            bdd.Entry(user).State = EntityState.Modified;
+            bdd.SaveChanges();
         }
-        
+
 
         public void Dispose()
         {

@@ -16,6 +16,7 @@ namespace Condorcar.Controllers
         ///                 Affiche la liste des trajets du véhicule                 ////
         public ActionResult Index()
         {
+            Session["persoRides"] = CRide.GetAll((CDriver)Session["User"]); ;
             return View();
         }
 
@@ -77,7 +78,9 @@ namespace Condorcar.Controllers
         ///                     Affiche la liste de tous les trajets                 ////
         public ActionResult List()
         {
-
+            CPassenger user = new CPassenger();
+            user = (CPassenger)Session["User"];
+            Session["smoker"] = user.Smoker;
             Session["rideList"] = CRide.GetAll();// TODO: catalogue
             return View();
         }
@@ -98,13 +101,13 @@ namespace Condorcar.Controllers
                     {
                         ride.AddPassenger((CPassenger)Session["User"]);
                         ViewBag.Message("Vous vous êtes bien inscrit au trajet !");
-                        Session["rideList"] = CRide.GetAll();// TODO: catalogue
+                        Session["rideList"] = CRide.GetAll();
                         View("List");
                     }
                     else
                     {
                         ViewBag.Message = "Trop tard ! Le départ est déjà en cours ou en préparation !";
-                        Session["rideList"] = CRide.GetAll();// TODO: catalogue
+                        Session["rideList"] = CRide.GetAll();
                         View("List");
                     }
                }

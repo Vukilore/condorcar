@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Condorcar.Models.POCO.CRide>
-@{ ViewBag.RideList = Session["rideList"];}
+@{ ViewBag.RideList = Session["rideList"];
+    ViewBag.Smoker = Session["smoker"];}
 
 @ViewBag.Message
 <table class="table">
@@ -28,36 +29,50 @@
     {
         foreach (var item in ViewBag.RideList)
         {
-            <tr style="background-color:#D0E3FA">
-                <td>
-                    @item.DepartureTime
-                </td>
-                <td>
-                    @item.ArrivalTime
-                </td>
-                <td>
-                    @item.Place
-                </td>
-                <td>
-                    @item.Price
-                </td>
-                <td>
-                    @item.Driver.Pseudo
-                </td>
-                <td>
-                    @if (item.Vehicle.CanSmoke)
-                    {<span>Oui</span>}
-                    else
-                    {<span>Non</span>}
-                </td>
+            ViewBag.Subscribable = false;
+            if (DateTime.Compare(item.ArrivalTime,DateTime.Now) < 0 )
+            {   ViewBag.Colour = "#e84e4e"; }
+            else if (DateTime.Compare(item.DepartureTime,DateTime.Now) == 0)
+            {   ViewBag.Colour = "#D0E3FA"; }
+            else {
+                ViewBag.Colour= "#4ee872";
+                ViewBag.Subscribable = true;
+            }
+        
+        <tr style="background-color:@ViewBag.Colour">
+            <td>
+                @item.DepartureTime
+            </td>
+            <td>
+                @item.ArrivalTime
+            </td>
+            <td>
+                @item.Place
+            </td>
+            <td>
+                @item.Price
+            </td>
+            <td>
+                @item.Driver.Pseudo
+            </td>
+            <td>
+                @if(ViewBag.CanSmoke != item.Vehicle.CanSmoke) {  }
+                @if (item.Vehicle.CanSmoke)
+                {<span>Oui</span>}
+                else
+                {<span>Non</span>}
+                
+            </td>
+            @if (ViewBag.Subscribable) {
                 <td>
                     @Html.ActionLink("Souscrire au trajet", "Subscribe", new { id = item.Id }) |
                 </td>
-            </tr>
+            }
+        </tr>
         }
     }
     else
     {
-        <tr><td>Il n'y a actuellement aucun trajet proposé pour les prochaines dates ! :(</td></tr>
+    <tr><td>Il n'y a actuellement aucun trajet proposé pour les prochaines dates ! :(</td></tr>
     }
 </table>
