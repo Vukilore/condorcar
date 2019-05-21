@@ -38,7 +38,7 @@ namespace Condorcar.Models
         public System.Data.Entity.DbSet<Condorcar.Models.POCO.CDriver> CUsers { get; set; }
     }
 
-    public class TTT : DropCreateDatabaseAlways<BddContext>
+    public class TTT : DropCreateDatabaseIfModelChanges<BddContext>
     {
         protected override void Seed(BddContext context)
         {

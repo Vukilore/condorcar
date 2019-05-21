@@ -21,8 +21,7 @@ namespace Condorcar.Controllers
         public ActionResult Manage() // Quand on clique sur le bouton gérer ses véhicules
         {
             ViewBag.Message = "";
-            CDriver user = new CDriver();
-            user = (CDriver)Session["User"];
+            CDriver user = (CDriver)Session["User"];
             ViewBag.Vehicles = user.Vehicles; // On stock les véhicules du conducteur dans un Viewbag
             return View("Manage"); // On affiche la vue Manage pour gérer la liste des véhicules
         }
@@ -50,8 +49,7 @@ namespace Condorcar.Controllers
         {
             if(ModelState.IsValid) // Si les champs sont valides
             {
-                CDriver user = new CDriver();
-                user = (CDriver)Session["User"];    // On charge les variables du conducteur dans user
+                CDriver user = (CDriver)Session["User"];    // On charge les variables du conducteur dans user
                 if (user.AddVehicle(vehicle) == true) // Si il a bien pu ajouter le véhicule
                 {
                     ViewBag.Message = "Vous avez enregistré un nouveau véhicule ! (Modèle : " + vehicle.Model + " places : " + vehicle.Seat + " Autorisé à fumer : " + vehicle.CanSmoke + ")";

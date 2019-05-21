@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Condorcar.Models.POCO.CRide>
 @{ ViewBag.Rides = Session["persoRides"];}
+@using Condorcar.Models.POCO;
 <p>
     @Html.ActionLink("Créer un nouveau trajet", "Create")
 </p>
@@ -22,7 +23,7 @@
     </tr>
     @if (ViewBag.Rides != null)
     {
-        foreach (var item in ViewBag.Rides)
+        foreach (var item in (List<CRide>)ViewBag.Rides)
         {
             <tr>
                 <td>

@@ -13,5 +13,7 @@ namespace Condorcar.Models.POCO
         [Display(Name = "Fumeur ?")]
         public bool Smoker { get; set; }
 
+        public List<CRide> RideList { get; set; }
+
     }
 }

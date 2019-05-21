@@ -94,38 +94,37 @@ namespace Condorcar.Controllers
         {
             CRide ride = new CRide();
             ride = ride.GetRide(idRide);
-            if(ride.Passengers.Count() >= ride.Vehicle.Seat) // Si la liste des passager n'est pas complet 
+            if (ride.Vehicle.Seat >= ride.Passengers.Count()) // Si la liste des passager n'est pas complet 
             {
-               if(ride.ArrivalTime.Date.Hour > DateTime.Now.Date.Hour)
+               if(DateTime.Compare(ride.ArrivalTime.Date, DateTime.Now) < 0 )
                {
-                    if (ride.DepartureTime.Date.Hour >= DateTime.Now.Date.Hour + 1)
+                    if (DateTime.Compare(ride.DepartureTime.Date, DateTime.Now.Date.AddHours(1)) < 0 )
                     {
                         ride.AddPassenger((CPassenger)Session["User"]);
-                        ViewBag.Message("Vous vous êtes bien inscrit au trajet !");
+                        ViewBag.Message ="Vous vous êtes bien inscrit au trajet !";
                         Session["rideList"] = CRide.GetAll();
-                        View("List");
+                        return View("List");
                     }
                     else
                     {
                         ViewBag.Message = "Trop tard ! Le départ est déjà en cours ou en préparation !";
                         Session["rideList"] = CRide.GetAll();
-                        View("List");
+                        return View("List");
                     }
                }
                else // Trajet est déjà fini
                {
                     ViewBag.Message = "Trop tard ! Le trajet est déjà fini !";
                     Session["rideList"] = CRide.GetAll();// TODO: catalogue
-                    View("List");
+                    return View("List");
                }
             }
             else // Sinon le nombre de place est atteins !
             {
                 ViewBag.Message = "Nombre de place maximum atteinte !";
                 Session["rideList"] = CRide.GetAll();// TODO: catalogue
-                View("List");
+                return View("List");
             }
-            return View();
         }
 
         /////////////////////////////////////////////////////////////////////////////////

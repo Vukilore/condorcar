@@ -1,6 +1,9 @@
-﻿@model IEnumerable<Condorcar.Models.POCO.CRide>
+﻿@using Condorcar.Models.POCO;
+
+@model IEnumerable<Condorcar.Models.POCO.CRide>
 @{ ViewBag.RideList = Session["rideList"];
     ViewBag.Smoker = Session["smoker"];}
+
 
 @ViewBag.Message
 <table class="table">
@@ -21,58 +24,66 @@
             @Html.DisplayNameFor(model => model.Driver.Pseudo)
         </th>
         <th>
+            <p>Nombre de passagé/Passagé Maximum</p>
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Vehicle.CanSmoke)
         </th>
         <th></th>
     </tr>
     @if (ViewBag.RideList != null)
     {
-        foreach (var item in ViewBag.RideList)
+        foreach (var item in (List<CRide>)ViewBag.RideList)
         {
             ViewBag.Subscribable = false;
-            if (DateTime.Compare(item.ArrivalTime,DateTime.Now) < 0 )
-            {   ViewBag.Colour = "#e84e4e"; }
-            else if (DateTime.Compare(item.DepartureTime,DateTime.Now) == 0)
-            {   ViewBag.Colour = "#D0E3FA"; }
-            else {
-                ViewBag.Colour= "#4ee872";
+            if (DateTime.Compare(item.ArrivalTime, DateTime.Now) < 0)
+            { ViewBag.Colour = "#e84e4e"; }
+            else if (DateTime.Compare(item.DepartureTime, DateTime.Now) == 0)
+            { ViewBag.Colour = "#D0E3FA"; }
+            else
+            {
+                ViewBag.Colour = "#4ee872";
                 ViewBag.Subscribable = true;
             }
-        
-        <tr style="background-color:@ViewBag.Colour">
-            <td>
-                @item.DepartureTime
-            </td>
-            <td>
-                @item.ArrivalTime
-            </td>
-            <td>
-                @item.Place
-            </td>
-            <td>
-                @item.Price
-            </td>
-            <td>
-                @item.Driver.Pseudo
-            </td>
-            <td>
-                @if(ViewBag.CanSmoke != item.Vehicle.CanSmoke) {  }
-                @if (item.Vehicle.CanSmoke)
-                {<span>Oui</span>}
-                else
-                {<span>Non</span>}
-                
-            </td>
-            @if (ViewBag.Subscribable) {
+
+            <tr style="background-color:@ViewBag.Colour">
                 <td>
-                    @Html.ActionLink("Souscrire au trajet", "Subscribe", new { id = item.Id }) |
+                    @item.DepartureTime
                 </td>
-            }
-        </tr>
+                <td>
+                    @item.ArrivalTime
+                </td>
+                <td>
+                    @item.Place
+                </td>
+                <td>
+                    @item.Price
+                </td>
+                <td>
+                    @item.Driver.Pseudo
+                </td>
+                <td>
+                    @item.Passengers.Count() / @item.Vehicle.Seat
+                </td>
+                <td>
+                    @if (ViewBag.CanSmoke != item.Vehicle.CanSmoke) { }
+                    @if (item.Vehicle.CanSmoke)
+                    {<span>Oui</span>}
+                    else
+                    {<span>Non</span>}
+
+                </td>
+                @if (ViewBag.Subscribable)
+                {
+                    <td>
+                        @Html.ActionLink("Souscrire au trajet", "Subscribe", new { idRide = item.Id }) |
+                    </td>
+                }
+            </tr>
         }
     }
     else
     {
-    <tr><td>Il n'y a actuellement aucun trajet proposé pour les prochaines dates ! :(</td></tr>
+        <tr><td>Il n'y a actuellement aucun trajet proposé pour les prochaines dates ! :(</td></tr>
     }
 </table>

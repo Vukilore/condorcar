@@ -2,6 +2,7 @@
 
     ViewBag.Title = "Manage";
 }
+@using Condorcar.Models.POCO;
 @model Condorcar.Models.POCO.CVehicle
 @ViewBag.Message
 <h2>Liste de vos véhicules</h2>
@@ -13,7 +14,7 @@
             <th>Autorisé à fumer</th>
         </tr>
     }
-    
+
 </table>
 
 <table class="table">
@@ -31,7 +32,7 @@
     </tr>
     @if (ViewBag.Vehicles != null)
     {
-        foreach (var item in ViewBag.Vehicles)
+        foreach (var item in (List<CVehicle>)ViewBag.Vehicles)
         {
             <tr>
                 <td>
@@ -41,8 +42,10 @@
                     @item.Model
                 </td>
                 <td>
-                    @if (item.CanSmoke) { <span>Oui</span>  }
-                    else { <span>Non</span>}
+                    @if (item.CanSmoke)
+                    {<span>Oui</span> }
+                    else
+                    { <span>Non</span>}
                 </td>
                 <td>
                     @Html.ActionLink("Modifier", "Edit", new { id = item.Id }) |
@@ -50,6 +53,9 @@
                 </td>
             </tr>
         }
-    } else { <tr>Vous n'avez pas encore de véhicule enregistré !</tr>}
+    }
+    else
+    {
+        <tr>Vous n'avez pas encore de véhicule enregistré !</tr>}
 </table>
 <input type="button" value="Ajouter un véhicule" onclick="location.href='@Url.Action("Add", "Vehicle")'" />
