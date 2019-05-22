@@ -1,17 +1,15 @@
 ﻿@model Condorcar.Models.POCO.CVehicle
 
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = "Ajout de véhicule";
 }
-
-<h2>Add</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>CVehicle</h4>
+        <h4>Ajout de véhicule</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

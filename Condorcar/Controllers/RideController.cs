@@ -67,7 +67,7 @@ namespace Condorcar.Controllers
             {
                 try
                 {
-                    ride.Vehicle = CVehicle.Get(Int32.Parse(ride.VehicleId));
+                    ride.Vehicle = CVehicle.GetVehicle(Int32.Parse(ride.VehicleId));
                 }
                 catch (FormatException)
                 {
@@ -76,7 +76,7 @@ namespace Condorcar.Controllers
                 CDriver driver = new CDriver();
                 driver = (CDriver)Session["User"];    // On charge les variables du conducteur dans user
                 ride.Driver = driver; 
-                ride.Add();
+                ride.AddRide();
                 Session["persoRides"] = CRide.GetAll((CDriver)Session["User"]); ;
                 ViewBag.Message = "Vous avez bien enregistré un nouveau trajet";
                 return View("Index");
@@ -192,7 +192,7 @@ namespace Condorcar.Controllers
             if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
             CRide ride = new CRide();
             ride = ride.GetRide(id);
-            ride.Delete();  
+            ride.DeleteRide();  
             return View();
         }
 

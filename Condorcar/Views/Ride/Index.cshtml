@@ -2,7 +2,7 @@
 @{ ViewBag.Rides = Session["persoRides"];}
 @using Condorcar.Models.POCO;
 <p>
-    @Html.ActionLink("Créer un nouveau trajet", "Create")
+    <button onclick="location.href='@Url.Action("Create", "Ride")'" style="background-color:transparent; border-color:transparent;"><img src="~/Content/image/icons8-carpool-filled-50.png" /><br />Ajouter un nouveau trajet</button>
 </p>
 <p>@ViewBag.Message</p>
 <table class="table">

@@ -50,7 +50,7 @@ namespace Condorcar.Models.POCO
         ///                               Delete                                      ///
         /////////////////////////////////////////////////////////////////////////////////
         ///                Supprime un trajet dans la base de données                ////
-        public void Delete()
+        public void DeleteRide()
         {
             if (this.Passengers.Count() > 0)
             {
@@ -64,7 +64,7 @@ namespace Condorcar.Models.POCO
         ///                               Add                                         ///
         /////////////////////////////////////////////////////////////////////////////////
         ///                Ajoute un trajet dans la base de données                  ////
-        public void Add()
+        public void AddRide()
         {
             DAL_CRide ride = new DAL_CRide();
             ride.Add(this);
@@ -110,7 +110,7 @@ namespace Condorcar.Models.POCO
         /////////////////////////////////////////////////////////////////////////////////
         ///                               GetAllOfDay                                 ///
         /////////////////////////////////////////////////////////////////////////////////
-        ///                     Retourne une liste de tous les trajets               ////
+        ///                     Retourne une liste de tous les trajets d'ajd         ////
         public static List<CRide> GetAllOfDay()
         {
             DAL_CRide rides = new DAL_CRide();

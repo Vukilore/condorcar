@@ -25,7 +25,7 @@ namespace Condorcar.Models.POCO
         ///                               Get                                         ///
         /////////////////////////////////////////////////////////////////////////////////
         ///                 Obtient les infos de la base de données                  ////   
-        public static CVehicle Get(int id)
+        public static CVehicle GetVehicle(int id)
         {
             DAL_CVehicle veh = new DAL_CVehicle();
             return veh.Get(id);

@@ -1,37 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Condorcar.Models.POCO.CDriver">
-    <Position X="0.5" Y="1.75" Width="1.5" />
+    <Position X="1.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
       <FileName>Models\POCO\CDriver.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Condorcar.Models.POCO.CPassenger">
-    <Position X="4.5" Y="2" Width="1.5" />
+    <Position X="5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAEAIAAAAAAQAAAA=</HashCode>
       <FileName>Models\POCO\CPassenger.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Condorcar.Models.POCO.CRide">
-    <Position X="7.25" Y="1.75" Width="1.5" />
+    <Position X="8" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAICAAEAAUQAAAIAAAAAEAAABAAAgAAAAkAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAEAAUQAAAIAAAAAEAAABAEAgBAAIkAAAAAAAAA=</HashCode>
       <FileName>Models\POCO\CRide.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Condorcar.Models.POCO.CUser">
-    <Position X="2.5" Y="0.75" Width="1.5" />
+    <Position X="3.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAACAAAAAEAAAAAAAAAACBAAACAAMAAAAAIAA=</HashCode>
       <FileName>Models\POCO\CUser.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Condorcar.Models.POCO.CVehicle">
-    <Position X="9.75" Y="1.75" Width="1.5" />
+    <Position X="10" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAEAAAAAAABAAAAAQAAAAABAAAAAAAgAAAEAAAA=</HashCode>
+      <HashCode>AAACAAEAAAAAAAAAAAAAQAAAAABABAAAAAgAAAEAAAA=</HashCode>
       <FileName>Models\POCO\CVehicle.cs</FileName>
     </TypeIdentifier>
   </Class>

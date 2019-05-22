@@ -23,7 +23,7 @@ namespace Condorcar.Controllers
             if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
             ViewBag.Message = "";
             CDriver user = (CDriver)Session["User"];
-            ViewBag.Vehicles = user.Vehicles; // On stock les véhicules du conducteur dans un Viewbag
+            Session["vehicles"] = user.Vehicles; // On stock les véhicules du conducteur dans un Viewbag
             return View("Manage"); // On affiche la vue Manage pour gérer la liste des véhicules
         }
 
@@ -57,7 +57,7 @@ namespace Condorcar.Controllers
                 if (user.AddVehicle(vehicle) == true) // Si il a bien pu ajouter le véhicule
                 {
                     ViewBag.Message = "Vous avez enregistré un nouveau véhicule ! (Modèle : " + vehicle.Model + " places : " + vehicle.Seat + " Autorisé à fumer : " + vehicle.CanSmoke + ")";
-                    ViewBag.Vehicles = user.Vehicles; // Pour l'afficher directe dans la liste
+                    Session["vehicles"] = user.Vehicles; // Pour l'afficher directe dans la liste
                     Session["User"] = user;
                     return View("Manage"); // Affichage de la liste
                 }

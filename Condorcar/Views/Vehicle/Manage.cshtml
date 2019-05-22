@@ -1,6 +1,7 @@
 ﻿@{
 
-    ViewBag.Title = "Manage";
+    ViewBag.Title = "Liste des véhicules";
+    ViewBag.Vehicles = Session["vehicles"];
 }
 @using Condorcar.Models.POCO;
 @model Condorcar.Models.POCO.CVehicle
@@ -58,4 +59,4 @@
     {
         <tr>Vous n'avez pas encore de véhicule enregistré !</tr>}
 </table>
-<input type="button" value="Ajouter un véhicule" onclick="location.href='@Url.Action("Add", "Vehicle")'" />
+<button onclick="location.href='@Url.Action("Add", "Vehicle")'" style="background-color:transparent; border-color:transparent;"><img src="~/Content/image/icons8-people-in-car-side-view-filled-50.png" /><br />Ajouter un véhicule</button>
