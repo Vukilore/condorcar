@@ -1,18 +1,20 @@
 ﻿@model Condorcar.Models.POCO.CRide
 @{ViewBag.Vehicles = Session["listVehicle"];}
 
+
+@ViewBag.Message
 @using (Html.BeginForm("Create", "Ride", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>CRide</h4>
+        <h4>Création d'un trajet</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.DepartureTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.DepartureTime, "{0:yyyy-MM-ddThh:mm:ss}", new { @class = "form-control", type = "datetime-local" })
+                @Html.EditorFor(m => m.DepartureTime, new { @class = "form-control", @type = "datetime-local" })
                 @Html.ValidationMessageFor(model => model.DepartureTime, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -20,7 +22,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ArrivalTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.ArrivalTime, "{0:yyyy-MM-ddThh:mm:ss}", new { @class = "form-control", type = "datetime-local" })
+                @Html.EditorFor(m => m.ArrivalTime, new { @class = "form-control", @type = "datetime-local" })
                 @Html.ValidationMessageFor(model => model.ArrivalTime, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -55,6 +57,8 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Retour à la liste", "Index")
-</div>
+   <center><button class="btn btn-danger"><img src="~/Content/image/icons8-no-alcohol-filled-50.png" /> La consommation de vin est interdite lors du trajet !</button></center> 
+
+        <div>
+            @Html.ActionLink("Retour à la liste", "Index")
+        </div>

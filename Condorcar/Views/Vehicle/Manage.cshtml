@@ -49,8 +49,7 @@
                     { <span>Non</span>}
                 </td>
                 <td>
-                    @Html.ActionLink("Modifier", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Supprimer", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Supprimer", "Delete", new { id = (int)item.Id })
                 </td>
             </tr>
         }

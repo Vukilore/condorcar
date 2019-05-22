@@ -72,16 +72,18 @@ namespace Condorcar.Controllers
         /////////////////////////////////////////////////////////////////////////////////
         public ActionResult Edit()
         {
-            if (Session["User"] is CPassenger)
-                return View();
+            if (Session["User"] is CPassenger) return View(Session["User"]);
             else return Redirect("Index");
         }
 
-        public ActionResult Edit(int id)
+        [HttpPost]
+        public ActionResult Edit(CPassenger passenger)
         {
-            if (Session["User"] is CPassenger)
-                return View();
-            else return Redirect("Index");
+            if (!(Session["User"] is CPassenger)) return Redirect("Index");
+            CPassenger user = (CPassenger)Session["User"];
+            user.Smoker = passenger.Smoker;
+            Session["User"] = user; // sauvegarder
+            return Redirect("Index");
         }
     }
 }

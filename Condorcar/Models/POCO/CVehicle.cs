@@ -58,5 +58,25 @@ namespace Condorcar.Models.POCO
             if (CanSmoke) return "Oui";
             else return "Non";
         }
+
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               ExistInAnyRide                              ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                 Obtient les infos de la base de données                  ////   
+        public bool ExistInAnyRide()
+        {
+            List<CRide> listRide = CRide.GetAll();
+            if (listRide != null)
+            {
+                foreach(var ride in listRide)
+                {
+                    if (ride.Vehicle == this)
+                        return true;
+                }
+                return false;
+            }
+            else return false;
+        }
+        
     }
 }

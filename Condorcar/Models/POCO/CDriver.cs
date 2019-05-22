@@ -19,7 +19,7 @@ namespace Condorcar.Models.POCO
         public CDriver() { Vehicles = new List<CVehicle>(); }
 
         /////////////////////////////////////////////////////////////////////////////////
-        ///                               AddVehicle                                  ///
+        ///                               RemoveVehicle                               ///
         /////////////////////////////////////////////////////////////////////////////////
         ///       Ajoute un véhicule dans la liste des véhicules de l'utilisateur    ////
         public void RemoveVehicle(CVehicle vehicle)

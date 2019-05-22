@@ -19,20 +19,20 @@ namespace Condorcar.Models.POCO
         public int Id { get; set; }
         [Required]
         [Display(Name = "Heure de départ")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-ddThh:mm:ss}")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd hh-mm}", ApplyFormatInEditMode = true)]
         public DateTime DepartureTime { get; set; }               // Jour + Heure de départ
         [Required]
         [Display(Name = "Heure estimée d'arriver")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-ddThh:mm:ss}")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd hh-mm}", ApplyFormatInEditMode = true)]
         public DateTime ArrivalTime { get; set; }                  // Jour + Heure d'arrivée
         [Required]
         [Display(Name = "Point de départ")]
         public string Place { get; set; }                          // Lieu de départ
         [Required]
         [Display(Name ="Prix (en Euro)")]
-        public float Price { get; set; }                           // Prix de la course
+        public double Price { get; set; }                           // Prix de la course
 
         public virtual CDriver Driver { get; set; }                // Le conducteur du trajet
         [Display(Name = "Véhicule à utiliser")]
@@ -52,13 +52,16 @@ namespace Condorcar.Models.POCO
         ///                Supprime un trajet dans la base de données                ////
         public void DeleteRide()
         {
-            if (this.Passengers.Count() > 0)
+            DAL_CRide ride = new DAL_CRide();
+            if (this.Passengers.Count() != 0)
             {
                 this.Passengers.Clear();
-                DAL_CRide ride = new DAL_CRide();
                 ride.SaveRide(this);
             }
-
+            else
+            {
+                ride.Remove(this);
+            }
         }
         /////////////////////////////////////////////////////////////////////////////////
         ///                               Add                                         ///

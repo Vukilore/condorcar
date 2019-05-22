@@ -3,7 +3,7 @@
   <Class Name="Condorcar.Models.POCO.CDriver">
     <Position X="1.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <HashCode>AAAEAAAAAAAAgAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
       <FileName>Models\POCO\CDriver.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -17,7 +17,7 @@
   <Class Name="Condorcar.Models.POCO.CRide">
     <Position X="8" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAEAAUQAAAIAAAAAEAAABAEAgBAAIkAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAEAAVQAAAIAAAAAEAAABAAAgBAAIkAAAAAAAAA=</HashCode>
       <FileName>Models\POCO\CRide.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -29,7 +29,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Condorcar.Models.POCO.CVehicle">
-    <Position X="10" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAEAAAAAAAAAAAAAQAAAAABABAAAAAgAAAEAAAA=</HashCode>
       <FileName>Models\POCO\CVehicle.cs</FileName>

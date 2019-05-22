@@ -31,11 +31,23 @@ namespace Condorcar.Controllers
         ///                               Delete                                      ///
         /////////////////////////////////////////////////////////////////////////////////
         ///                 Supprime un véhicule dans la liste de l'utilisateur      ////
-        [HttpPost]
         public ActionResult Delete(int id)
         {
             if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
-            return View();
+            CDriver user = (CDriver)Session["User"];
+            CVehicle veh = CVehicle.GetVehicle(id);
+            if(!veh.ExistInAnyRide())
+            {
+                user.RemoveVehicle(veh);
+            }
+            else
+            {
+                ViewBag.Message = "Ce véhicule est présent dans un trajet, il ne peut donc pas être supprimé !";
+                Session["vehicles"] = user.Vehicles; // On stock les véhicules du conducteur dans un Viewbag
+                return View("Manage"); // On affiche la vue Manage pour gérer la liste des véhicules
+            }
+                
+            return RedirectToAction("Manage");
         }
 
         /////////////////////////////////////////////////////////////////////////////////

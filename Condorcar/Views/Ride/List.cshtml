@@ -38,20 +38,21 @@
         {
             ViewBag.Unsuscribable = false;
             ViewBag.Subscribable = false;
-            if(ViewBag.UserRideList != null)
+            if (ViewBag.UserRideList != null)
             {
-                foreach(var ride in (List<CRide>)ViewBag.UserRideList)
+                foreach (var ride in (List<CRide>)ViewBag.UserRideList)
                 {
-                    if(ride.Id == item.Id)
+                    if (ride.Id == item.Id)
                     {
                         ViewBag.Colour = "#7d8984";
                         ViewBag.Unsuscribable = true;
                     }
                 }
             }
-            if(ViewBag.Unsuscribable == false)
+            if (ViewBag.Unsuscribable == false)
             {
-                if (DateTime.Compare(item.ArrivalTime, DateTime.Now) < 0)
+                @*Incompréhension lié au retour dans le temps pour la delorean  V *@
+                if (DateTime.Compare(item.ArrivalTime, DateTime.Now) < 0 && DateTime.Compare(item.DepartureTime, DateTime.Now) < 0)
                 { ViewBag.Colour = "#e84e4e"; }
                 else if (DateTime.Compare(item.DepartureTime, DateTime.Now) < 0)
                 {
@@ -96,8 +97,8 @@
 
                 </td>
                 <td>
-                @if (ViewBag.Unsuscribable == true)
-                {
+                    @if (ViewBag.Unsuscribable == true)
+                    {
                         if (DateTime.Compare(item.DepartureTime, DateTime.Now) > 0)
                         {@Html.ActionLink("Annuler mon trajet", "UnSubscribe", new { idRide = item.Id }, new { @class = "btn btn-danger" }) }
 
@@ -110,8 +111,18 @@
                 </td>
             </tr>
         }
-        <tr><td></td><td style="background-color:#7d8984">Vous êtes inscrit au trajet</td><td style="background-color:#e84e4e">Le trajet est fini.</td><td style="background-color:#417ee0">Le trajet est en cours.</td><td style="background-color:#4ee872">Le trajet est disponible.</td>
-            <td></td><td><img src="~/Content/image/smoking.png" />@if (ViewBag.Smoker == true) { <p>Trajet non fumeur !!</p>} else { <p>Trajet potentiellement fumeur !!</p> } </td></tr>
+        <tr>
+            <td></td>
+            <td style="background-color:#7d8984">Vous êtes inscrit au trajet</td>
+            <td style="background-color:#e84e4e">Le trajet est fini.</td>
+            <td style="background-color:#417ee0">Le trajet est en cours.</td>
+            <td style="background-color:#4ee872">Le trajet est disponible.</td>
+            <td></td>
+            <td><img src="~/Content/image/smoking.png" />@if (ViewBag.Smoker == true)
+            {<p>Trajet non fumeur !!</p>}
+            else
+            { <p>Trajet potentiellement fumeur !!</p>} </td>
+        </tr>
     }
     else
     {

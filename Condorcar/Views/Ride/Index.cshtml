@@ -28,7 +28,22 @@
     {
         foreach (var item in (List<CRide>)ViewBag.Rides)
         {
-            <tr>
+            @*Incompréhension lié au retour dans le temps pour la delorean  V *@
+            if (DateTime.Compare(item.ArrivalTime, DateTime.Now) < 0 && DateTime.Compare(item.DepartureTime, DateTime.Now) < 0)
+            { ViewBag.Colour = "#e84e4e"; }
+            else if (DateTime.Compare(item.DepartureTime, DateTime.Now) < 0)
+            {
+                if (DateTime.Compare(item.ArrivalTime, DateTime.Now) > 0)
+                {
+                    ViewBag.Colour = "#417ee0";
+                }
+            }
+            else
+            {
+                ViewBag.Colour = "#4ee872";
+                ViewBag.Subscribable = true;
+            }
+            <tr style="background-color:@ViewBag.Colour">
                 <td>
                     @item.DepartureTime
                 </td>
@@ -46,11 +61,19 @@
                 </td>
                 <td>
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Supprimer", "Delete", new { id = item.Id })
+                    @if (DateTime.Compare(item.DepartureTime, DateTime.Now) > 0)
+                    {@Html.ActionLink("Supprimer", "Delete", new { id = item.Id })}
                 </td>
             </tr>
         }
-    }
+        <tr>
+            <td></td> <td></td>
+            <td style="background-color:#e84e4e">Le trajet est fini.</td>
+            <td style="background-color:#417ee0">Le trajet est en cours.</td>
+            <td style="background-color:#4ee872">Le trajet est disponible.</td>
+            <td></td>
+        </tr>
+     }
 
 
-</table>
+    </table>

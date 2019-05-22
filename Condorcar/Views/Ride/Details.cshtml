@@ -1,7 +1,7 @@
 ﻿@model Condorcar.Models.POCO.CRide
-
+@using Condorcar.Models.POCO
 <div>
-    <h4>CRide</h4>
+    <h4>Détail du trajet</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -35,10 +35,31 @@
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
-
+        <dt>
+            <picture>Pseudo du conducteur</picture>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Driver.Pseudo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Vehicle.Model)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Vehicle.Model)
+        </dd>
+        @*<dt> // La liste ne s'affiche pas, à regarder plus tard
+            <picture>Liste des passagers</picture>
+        </dt>
+        <dd>
+                  if(Model.Passengers != null)
+                  {
+                      foreach (var passenger in (List<CPassenger>)Model.Passengers)
+                      {
+                          <p>1</p>
+                          @Html.Display(passenger.Pseudo)
+                      }
+                  }
+                  else { <p>Aucun passager dans ce trajet !</p>}
+         </dd>*@
     </dl>
-</div>
-<p>
-    @*Html.ActionLink("Edit", "Edit", new { id = Model.Id })*@ |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </div>

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -28,17 +29,23 @@ namespace Condorcar.Models.DAL
 
         public List<CRide> GetAllOfDay()
         {
-             return bdd.T_CRide.Where(p => p.ArrivalTime >= DateTime.Now).ToList();
+             return bdd.T_CRide.Where(p => DbFunctions.TruncateTime(p.ArrivalTime) >= DbFunctions.TruncateTime(DateTime.Now)).ToList();
         }
         
         public List<CRide> GetAllOfDay(CDriver driver)
         {
-            return bdd.T_CRide.Where(p => p.Driver.Id == driver.Id && p.ArrivalTime >= DateTime.Now).ToList();
+            return bdd.T_CRide.Where(p => p.Driver.Id == driver.Id && DbFunctions.TruncateTime(p.ArrivalTime) >= DbFunctions.TruncateTime(DateTime.Now)).ToList();
         }
 
         public void SaveRide(CRide ride)
         {
             bdd.Entry(ride).State = EntityState.Modified;
+            bdd.SaveChanges();
+        }
+
+        public void Remove(CRide ride)
+        {
+            bdd.T_CRide.Remove(ride);
             bdd.SaveChanges();
         }
 

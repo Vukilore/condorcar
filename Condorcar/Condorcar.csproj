@@ -100,6 +100,7 @@
     <Content Include="Content\image\deco.png" />
     <Content Include="Content\image\icons8-carpool-filled-50.png" />
     <Content Include="Content\image\icons8-driver-482.png" />
+    <Content Include="Content\image\icons8-no-alcohol-filled-50.png" />
     <Content Include="Content\image\icons8-passenger-48.png" />
     <Content Include="Content\image\icons8-people-in-car-side-view-filled-50.png" />
     <Content Include="Content\image\icons8-taxi-license-642.png" />
@@ -161,6 +162,7 @@
     <Content Include="Views\Ride\Delete.cshtml" />
     <Content Include="Views\Vehicle\Delete.cshtml" />
     <Content Include="Views\Ride\Details.cshtml" />
+    <Content Include="Views\Passenger\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

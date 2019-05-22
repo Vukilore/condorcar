@@ -38,7 +38,9 @@ namespace Condorcar.Controllers
         ///                      Affiche le détail d'un trajet                       ////
         public ActionResult Details(int id)
         {
-            return View();
+            CRide ride = new CRide();
+            ride = ride.GetRide(id);
+            return View(ride);
         }
 
         /////////////////////////////////////////////////////////////////////////////////
@@ -63,28 +65,28 @@ namespace Condorcar.Controllers
         public ActionResult Create(CRide ride)
         {
             if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
-            try
+            ride.Vehicle = CVehicle.GetVehicle(Int32.Parse(ride.VehicleId));
+            if (DateTime.Compare(ride.DepartureTime, DateTime.Now) < 0)
             {
-                try
-                {
-                    ride.Vehicle = CVehicle.GetVehicle(Int32.Parse(ride.VehicleId));
-                }
-                catch (FormatException)
-                {
-                    throw new Exception("Impossible de convertir l'ID du véhicule. Est-il correcte ?");
-                }
-                CDriver driver = new CDriver();
-                driver = (CDriver)Session["User"];    // On charge les variables du conducteur dans user
-                ride.Driver = driver; 
-                ride.AddRide();
-                Session["persoRides"] = CRide.GetAll((CDriver)Session["User"]); ;
-                ViewBag.Message = "Vous avez bien enregistré un nouveau trajet";
-                return View("Index");
+                ViewBag.Message = "Il est trop tard pour ajouter un trajet !";
+                return View("Create");
             }
-            catch
+            if (DateTime.Compare(ride.DepartureTime, ride.ArrivalTime) > 0)
             {
-                return View();
+                if (ride.Vehicle.Model.ToString() != "Delorean DMC12")
+                {
+                    ViewBag.Message = "Tu ne voyages pas dans le temps il me semble !";
+                    return View("Create");
+                }
             }
+            
+            CDriver driver = new CDriver();
+            driver = (CDriver)Session["User"];    // On charge les variables du conducteur dans user
+            ride.Driver = driver; 
+            ride.AddRide();
+            Session["persoRides"] = CRide.GetAll((CDriver)Session["User"]); ;
+            ViewBag.Message = "Vous avez bien enregistré un nouveau trajet";
+            return View("Index");
         }
 
         /////////////////////////////////////////////////////////////////////////////////
@@ -192,8 +194,21 @@ namespace Condorcar.Controllers
             if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
             CRide ride = new CRide();
             ride = ride.GetRide(id);
-            ride.DeleteRide();  
-            return View();
+            if(ride.Passengers.Count() > 0)
+            {
+                ViewBag.Message = "Impossible de supprimer ce trajet, des passagers ont déjà réservé ou le trajet est déjà terminé";
+                return RedirectToAction("../Driver/Index");
+            }
+            return View(ride);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(CRide ride)
+        {
+            if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
+            ride = ride.GetRide(ride.Id);
+            ride.DeleteRide();
+            return RedirectToAction("../Driver/Index");
         }
 
         /////////////////////////////////////////////////////////////////////////////////
