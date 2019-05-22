@@ -16,8 +16,20 @@ namespace Condorcar.Controllers
         ///                 Affiche la liste des trajets du véhicule                 ////
         public ActionResult Index()
         {
-            Session["persoRides"] = CRide.GetAll((CDriver)Session["User"]); ;
+            if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
+            Session["persoRides"] = CRide.GetAllOfDay((CDriver)Session["User"]); ;
             return View();
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               History                                     ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                 Affiche la liste des trajets du véhicule                 ////
+        public ActionResult AllPersonalRide()
+        {
+            if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
+            Session["persoRides"] = CRide.GetAll((CDriver)Session["User"]); ;
+            return View("Index");
         }
 
         /////////////////////////////////////////////////////////////////////////////////
@@ -35,6 +47,7 @@ namespace Condorcar.Controllers
         ///            Ajoute un nouveau trajet dans la liste des trajets            ////
         public ActionResult Create()
         {
+            if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
             CDriver user = new CDriver();
             user = (CDriver)Session["User"];    // On charge les variables du conducteur dans user
             if (user.Vehicles == null)
@@ -49,6 +62,7 @@ namespace Condorcar.Controllers
         [HttpPost]
         public ActionResult Create(CRide ride)
         {
+            if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
             try
             {
                 try
@@ -74,31 +88,48 @@ namespace Condorcar.Controllers
         }
 
         /////////////////////////////////////////////////////////////////////////////////
-        ///                               List                                        ///
+        ///                               History                                     ///
         /////////////////////////////////////////////////////////////////////////////////
         ///                     Affiche la liste de tous les trajets                 ////
-        public ActionResult List()
+        public ActionResult History()
         {
+            if (!(Session["User"] is CPassenger)) return Redirect("../Home/Index");
             CPassenger user = new CPassenger();
             user = (CPassenger)Session["User"];
             Session["smoker"] = user.Smoker;
             Session["userRideList"] = user.RideList;
-            Session["rideList"] = CRide.GetAll();// TODO: catalogue
+            Session["rideList"] = CRide.GetAll();
+            return View("List");
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               List                                        ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                     Affiche la liste de tous les trajets d'ajd           ////
+        public ActionResult List()
+        {
+            if (!(Session["User"] is CPassenger)) return Redirect("../Home/Index");
+            CPassenger user = new CPassenger();
+            user = (CPassenger)Session["User"];
+            Session["smoker"] = user.Smoker;
+            Session["userRideList"] = user.RideList;
+            Session["rideList"] = CRide.GetAllOfDay();
             return View();
         }
 
         /////////////////////////////////////////////////////////////////////////////////
-        ///                               Subscribe                                   ///
+        ///                               UnSubscribe                                 ///
         /////////////////////////////////////////////////////////////////////////////////
         ///                     Retire un passager à un trajet                       ////
         public ActionResult UnSubscribe(int idRide)
         {
+            if (!(Session["User"] is CPassenger)) return Redirect("../Home/Index");
             CPassenger passenger = (CPassenger)Session["User"];
             CRide ride = new CRide();
             ride = ride.GetRide(idRide);
             passenger.RemoveToRide(ride);
             Session["User"] = passenger;
-            ViewBag.Message = "Vous vous êtes bien inscrit au trajet !";
+            ViewBag.Message = "Vous vous êtes bien Désinscris du trajet !";
             Session["smoker"] = passenger.Smoker;
             Session["userRideList"] = passenger.RideList;
             Session["rideList"] = CRide.GetAll();
@@ -111,6 +142,7 @@ namespace Condorcar.Controllers
         ///                     Inscrit un passager à un trajet                      ////
         public ActionResult Subscribe(int idRide)
         {
+            if (!(Session["User"] is CPassenger)) return Redirect("../Home/Index");
             CRide ride = new CRide();
             ride = ride.GetRide(idRide);
             if (ride.Vehicle.Seat > ride.Passengers.Count()) // Si la liste des passager n'est pas complet 
@@ -122,7 +154,7 @@ namespace Condorcar.Controllers
                         CPassenger passenger = (CPassenger)Session["User"];
                         passenger.AddToRide(ride);
                         Session["User"] = passenger;
-                        ViewBag.Message ="Vous vous êtes bien inscrit au trajet !";
+                        ViewBag.Message ="Vous vous êtes bien inscrit au trajet ! ID: " + idRide + "()" +ride.Id;
                         Session["smoker"] = passenger.Smoker;
                         Session["userRideList"] = passenger.RideList;
                         Session["rideList"] = CRide.GetAll();
@@ -151,39 +183,17 @@ namespace Condorcar.Controllers
         }
 
         /////////////////////////////////////////////////////////////////////////////////
-        ///                               Edit                                        ///
-        /////////////////////////////////////////////////////////////////////////////////
-        ///                 Edit un trajet dans la liste des trajets                 ////
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Ride/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        /////////////////////////////////////////////////////////////////////////////////
         ///                               Delete                                      ///
         /////////////////////////////////////////////////////////////////////////////////
         ///                 Supprime un trajet dans la liste des trajets             ////
         // POST: Ride/Delete/5
-        [HttpPost]
         public ActionResult Delete(int id)
         {
-                return View();
+            if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
+            CRide ride = new CRide();
+            ride = ride.GetRide(id);
+            ride.Delete();  
+            return View();
         }
 
         /////////////////////////////////////////////////////////////////////////////////

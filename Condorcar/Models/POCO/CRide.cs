@@ -45,6 +45,21 @@ namespace Condorcar.Models.POCO
 
         public CRide() { Passengers = new List<CPassenger>(); }
 
+        
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               Delete                                      ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                Supprime un trajet dans la base de données                ////
+        public void Delete()
+        {
+            if (this.Passengers.Count() > 0)
+            {
+                this.Passengers.Clear();
+                DAL_CRide ride = new DAL_CRide();
+                ride.SaveRide(this);
+            }
+
+        }
         /////////////////////////////////////////////////////////////////////////////////
         ///                               Add                                         ///
         /////////////////////////////////////////////////////////////////////////////////
@@ -80,11 +95,32 @@ namespace Condorcar.Models.POCO
         ///                               GetAll                                      ///
         /////////////////////////////////////////////////////////////////////////////////
         ///                     Retourne une liste de tous les trajets               ////
-        public static List<CRide> GetAll(CDriver user = null)
+        public static List<CRide> GetAll()
         {
             DAL_CRide rides = new DAL_CRide();
-            if (user == null) return rides.GetAll();
-            else return rides.GetAll(user);
+            return rides.GetAll();
+        }
+
+        public static List<CRide> GetAll(CDriver user)
+        {
+            DAL_CRide rides = new DAL_CRide();
+            return rides.GetAll(user);
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               GetAllOfDay                                 ///
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                     Retourne une liste de tous les trajets               ////
+        public static List<CRide> GetAllOfDay()
+        {
+            DAL_CRide rides = new DAL_CRide();
+            return rides.GetAllOfDay();
+        }
+
+        public static List<CRide> GetAllOfDay(CDriver user)
+        {
+            DAL_CRide rides = new DAL_CRide();
+            return rides.GetAllOfDay(user);
         }
 
     }

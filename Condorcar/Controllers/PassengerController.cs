@@ -14,6 +14,7 @@ namespace Condorcar.Controllers
         /////////////////////////////////////////////////////////////////////////////////
         public ActionResult Index()
         {
+            if (!(Session["User"] is CPassenger)) return Redirect("../Home/Index");
             return View();
         }
 
@@ -22,6 +23,7 @@ namespace Condorcar.Controllers
         /////////////////////////////////////////////////////////////////////////////////
         public ActionResult Connect() // Redirection une fois connecté
         {
+            if (!(Session["User"] is CPassenger)) return Redirect("../Home/Index");
             HttpCookie c = new HttpCookie("lastVisit");
             var user = (CPassenger)Session["User"];
             c.Values["Pseudo"] = user.Pseudo;
@@ -63,6 +65,23 @@ namespace Condorcar.Controllers
                 }
             }
             else { return View("Register"); }
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////
+        ///                               Edit                                        ///
+        /////////////////////////////////////////////////////////////////////////////////
+        public ActionResult Edit()
+        {
+            if (Session["User"] is CPassenger)
+                return View();
+            else return Redirect("Index");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            if (Session["User"] is CPassenger)
+                return View();
+            else return Redirect("Index");
         }
     }
 }

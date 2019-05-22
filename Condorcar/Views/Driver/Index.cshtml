@@ -7,9 +7,9 @@
 @ViewBag.Message2
 
 <h2>Connecté sur la page des conducteurs !</h2>
-<p> Tu es ici car tu es déjà connecté!</p>
 
-<input type="button" value="Gérer mes véhicules" onclick="location.href='@Url.Action("Manage", "Vehicle")'" />
-<input type="button" value="Gérer mes trajets" onclick="location.href='@Url.Action("Index", "Ride")'" />
-<input type="button" value="Se déconnecter" onclick="location.href='@Url.Action("Disconnect", "Home")'" />
+<button onclick="location.href='@Url.Action("Manage", "Vehicle")'" style="background-color:transparent; border-color:transparent;"><img src="~/Content/image/icons8-people-in-car-side-view-filled-50.png" /><br />Gérer mes véhicules</button>
+<button onclick="location.href='@Url.Action("Index", "Ride")'" style="background-color:transparent; border-color:transparent;"><img src="~/Content/image/icons8-carpool-filled-50.png" /><br />Gérer mes trajets du jour</button>
+<button onclick="location.href='@Url.Action("AllPersonalRide", "Ride")'" style="background-color:transparent; border-color:transparent;"><img src="~/Content/image/icons8-carpool-filled-50.png" /><br />Gérer tous mes trajets</button>
 
+<button onclick="location.href='@Url.Action("Disconnect", "Home")'" style="background-color:transparent; border-color:transparent;"><img src="~/Content/image/deco.png" /><br />Se déconnecter</button>

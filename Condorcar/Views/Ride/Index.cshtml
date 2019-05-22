@@ -19,6 +19,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vehicle.Seat)
+        </th>
         <th></th>
     </tr>
     @if (ViewBag.Rides != null)
@@ -39,9 +42,11 @@
                     @item.Price
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @item.Vehicle.Seat
+                </td>
+                <td>
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Supprimer", "Delete", new { id = item.Id })
                 </td>
             </tr>
         }

@@ -15,6 +15,7 @@ namespace Condorcar.Controllers
         /////////////////////////////////////////////////////////////////////////////////
         public ActionResult Index()
         {
+            if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
             return View("Index");
         }
 
@@ -23,6 +24,7 @@ namespace Condorcar.Controllers
         /////////////////////////////////////////////////////////////////////////////////
         public ActionResult Connect() // Redirection une fois connecté
         {
+            if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
             HttpCookie c = new HttpCookie("lastVisit");
             var user = (CDriver)Session["User"];
             c.Values["Pseudo"] = user.Pseudo;

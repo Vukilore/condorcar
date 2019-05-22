@@ -26,20 +26,30 @@ namespace Condorcar.Models.DAL
             return bdd.T_CRide.Where(p => p.Driver == driver).SingleOrDefault();
         }
 
-        public List<CRide> GetAll()
+        public List<CRide> GetAllOfDay()
         {
-             return bdd.T_CRide.ToList();
+             return bdd.T_CRide.Where(p => p.ArrivalTime >= DateTime.Now).ToList();
         }
-
-        public List<CRide> GetAll(CDriver driver)
+        
+        public List<CRide> GetAllOfDay(CDriver driver)
         {
-            return bdd.T_CRide.Where(p => p.Driver.Id == driver.Id).ToList();
+            return bdd.T_CRide.Where(p => p.Driver.Id == driver.Id && p.ArrivalTime >= DateTime.Now).ToList();
         }
 
         public void SaveRide(CRide ride)
         {
             bdd.Entry(ride).State = EntityState.Modified;
             bdd.SaveChanges();
+        }
+
+        public List<CRide> GetAll()
+        {
+            return bdd.T_CRide.ToList();
+        }
+
+        public List<CRide> GetAll(CDriver driver)
+        {
+            return bdd.T_CRide.Where(p => p.Driver.Id == driver.Id).ToList();
         }
 
         public void Add(CRide ride)

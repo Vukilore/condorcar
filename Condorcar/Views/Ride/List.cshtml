@@ -3,7 +3,7 @@
 @model IEnumerable<Condorcar.Models.POCO.CRide>
 @{ ViewBag.RideList = Session["rideList"];
     ViewBag.Smoker = Session["smoker"];
-    ViewBag.UserRideList = Session["UserRideList"];}
+    ViewBag.UserRideList = Session["userRideList"];}
 
 
 @ViewBag.Message
@@ -96,15 +96,17 @@
 
                 </td>
                 <td>
-                    @if (ViewBag.Unsuscribable == true && DateTime.Compare(item.DepartureTime, DateTime.Now) > 0)
-                    {
-                        @Html.ActionLink("Annuler mon trajet", "UnSubscribe", new { idRide = item.Id }, new { @class = "btn btn-danger" })
-                    }
-                    else if (ViewBag.Subscribable)
-                    {
+                @if (ViewBag.Unsuscribable == true)
+                {
+                        if (DateTime.Compare(item.DepartureTime, DateTime.Now) > 0)
+                        {@Html.ActionLink("Annuler mon trajet", "UnSubscribe", new { idRide = item.Id }, new { @class = "btn btn-danger" }) }
 
-                        @Html.ActionLink("Souscrire au trajet", "UnSubscribe", new { idRide = item.Id }, new { @class = "btn btn-warning" })
-                    }
+                }
+                else if (ViewBag.Subscribable)
+                {
+
+                    @Html.ActionLink("Souscrire au trajet", "Subscribe", new { idRide = item.Id }, new { @class = "btn btn-warning" })
+                }
                 </td>
             </tr>
         }

@@ -9,9 +9,9 @@ namespace Condorcar.Controllers
 {
     public class VehicleController : Controller
     {
-        // GET: Vehicle
         public ActionResult Index()
         {
+            if (!(Session["User"] is CPassenger)) return Redirect("../Home/Index");
             return View();
         }
 
@@ -20,6 +20,7 @@ namespace Condorcar.Controllers
         /////////////////////////////////////////////////////////////////////////////////
         public ActionResult Manage() // Quand on clique sur le bouton gérer ses véhicules
         {
+            if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
             ViewBag.Message = "";
             CDriver user = (CDriver)Session["User"];
             ViewBag.Vehicles = user.Vehicles; // On stock les véhicules du conducteur dans un Viewbag
@@ -33,6 +34,7 @@ namespace Condorcar.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
+            if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
             return View();
         }
 
@@ -41,13 +43,15 @@ namespace Condorcar.Controllers
         /////////////////////////////////////////////////////////////////////////////////
         public ActionResult Add() // Quand on appuie sur le bouton ajouter véhicule
         {
+            if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
             return View("Add"); // Formulaire d'ajout de véhicule
         }
 
         [HttpPost]
         public ActionResult Add(CVehicle vehicle) // Quand on valide le formulaire pour ajouter le véhicule
         {
-            if(ModelState.IsValid) // Si les champs sont valides
+            if (!(Session["User"] is CDriver)) return Redirect("../Home/Index");
+            if (ModelState.IsValid) // Si les champs sont valides
             {
                 CDriver user = (CDriver)Session["User"];    // On charge les variables du conducteur dans user
                 if (user.AddVehicle(vehicle) == true) // Si il a bien pu ajouter le véhicule
